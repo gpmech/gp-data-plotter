@@ -1,0 +1,44 @@
+[
+  {
+    "displayName": "Speed",
+    "piboso": "Speed",
+    "aim": "GPS Speed",
+    "motec": "Ground Speed"
+  },
+  {
+    "displayName": "Radius",
+    "piboso": "Radius",
+    "aim": "GPS Radius",
+    "motec": "Radius"
+  },
+  {
+    "displayName": "LatAcc",
+    "piboso": "LatAcc",
+    "aim": "GPS LatAcc",
+    "motec": "G Force Lat"
+  },
+  {
+    "displayName": "LongAcc",
+    "piboso": "LonAcc",
+    "aim": "GPS LonAcc",
+    "motec": "G Force Long"
+  },
+  {
+    "displayName": "Total Acceleration (calc)",
+    "piboso": "Total Acceleration (calc)",
+    "aim": "Total Acceleration (calc)",
+    "motec": "Total Acceleration (calc)"
+  },
+  {
+    "displayName": "Altitude",
+    "piboso": "PosY_3D",
+    "aim": "GPS Altitude",
+    "motec": "Altitude"
+  },
+  {
+    "displayName": "Slope",
+    "piboso": "",
+    "aim": "GPS Slope",
+    "motec": "Slope"
+  }
+]

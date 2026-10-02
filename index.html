@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en" data-brand="graphite">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GP Data</title>
+  <script>
+    // Runs before style.css paints anything so the page never flashes the wrong theme.
+    // Kept inline/synchronous for that reason -- the full toggle UI logic lives in app.js.
+    (function () {
+      try {
+        var stored = localStorage.getItem('csvPlotterTheme');
+        var theme = (stored === 'dark' || stored === 'light')
+          ? stored
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="leaflet.css" />
+  <!-- Loads after Leaflet's CSS so our theme overrides (e.g. dark-mode control colors)
+       win the cascade on equal specificity, regardless of shorthand/longhand quirks. -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Loaded live from Google's CDN, unlike every other library here (see lib/ above) --
+       Google's OAuth/Picker SDKs can't be self-hosted (they talk to Google's live login
+       session), and they're inert offline: `google`/`gapi` just stay undefined, which is
+       exactly what google-drive.js checks for. Stripped from the offline ESP32 build --
+       see scripts/build-production.js. -->
+  <script async defer src="https://accounts.google.com/gsi/client"></script>
+  <script async defer src="https://apis.google.com/js/api.js"></script>
+</head>
+<body>
+  <header>
+    <div class="header-top">
+      <button id="controlsToggle" class="hamburger-btn" aria-label="Open controls" aria-expanded="false" aria-controls="controlsPanel">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <h1 class="app-title">GP Data</h1>
+    </div>
+  </header>
+
+  <div id="controlsBackdrop" class="controls-backdrop" hidden></div>
+
+  <main>
+    <section id="controlsPanel" class="controls" aria-label="Plot controls">
+      <div class="controls-header">
+        <p></p>
+        <button id="controlsClose" class="controls-close" aria-label="Close controls"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg></button>
+      </div>
+      <!-- Where data comes from: new files from disk, files already saved in this browser, or
+           Google Drive. One row of matching buttons; "Add New Data Files" opens the hidden
+           file input below (see app.js). -->
+      <div class="data-source-row">
+        <button id="addDataFilesBtn" type="button" class="data-source-btn" title="Open data files from this device (CSV, GP Bikes .res, Garmin .tcx and more)">Add New Data Files</button>
+        <button id="pickUploadedDataBtn" type="button" class="data-source-btn" title="Pick from previously uploaded files">Pick Uploaded Data</button>
+        <button id="googleDriveImportCsvBtn" type="button" class="data-source-btn" title="Import a CSV from Google Drive" hidden>Import from Google Drive</button>
+      </div>
+      <input id="fileInput" type="file" accept=".csv,text/csv,application/csv,application/vnd.ms-excel,.tsv,.txt,text/tab-separated-values,text/plain,.dat,.res,.tcx,application/xml,text/xml" multiple hidden />
+
+      <!-- Pick Uploaded Data modal -->
+      <div id="pickUploadedModal" class="pick-uploaded-modal" hidden role="dialog" aria-modal="true" aria-labelledby="pickUploadedTitle">
+        <div class="pick-uploaded-backdrop"></div>
+        <div class="pick-uploaded-dialog">
+          <div class="pick-uploaded-header">
+            <span id="pickUploadedTitle" class="pick-uploaded-title">Pick Uploaded Data</span>
+            <button id="pickUploadedCloseBtn" type="button" class="pick-uploaded-close" aria-label="Close">&times;</button>
+          </div>
+          <div class="pick-uploaded-tabs" role="tablist">
+            <button type="button" class="pick-uploaded-tab is-active" data-pick-tab="files" role="tab" aria-selected="true">Files</button>
+
+          </div>
+          <div id="pickUploadedFileControls" class="pick-uploaded-controls">
+            <label class="pick-uploaded-sort-label">Sort by:
+              <select id="pickUploadedSortSelect" class="pick-uploaded-sort-select">
+                <option value="name">Name</option>
+                <option value="date" selected>Date (newest first)</option>
+                <option value="track">Track / Venue</option>
+                <option value="rider">Rider</option>
+                <option value="vehicle">Vehicle</option>
+              </select>
+            </label>
+            <input id="pickUploadedSearch" type="text" class="pick-uploaded-search" placeholder="Filter files…" autocomplete="off" />
+          </div>
+          <div id="pickUploadedList" class="pick-uploaded-list"></div>
+        </div>
+      </div>
+
+      <div id="filesList" class="files-list"></div>
+
+      <div id="lapsList" class="files-list"></div>
+
+      <details class="collapsible-action" open>
+        <summary class="collapsible-action-summary">
+          <span class="collapsible-action-label">Plots</span>
+          <span class="collapsible-caret" aria-hidden="true"></span>
+        </summary>
+        <div class="collapsible-action-body plots-body">
+          <div>
+            <strong>X Axis:</strong>
+            <label><input type="radio" name="xaxis" value="time" /> Time</label>
+            <label><input type="radio" name="xaxis" value="distance" checked /> Distance</label>
+            <label><input type="radio" name="xaxis" value="custom" /> Channel</label>
+            <select id="xCustomSelect"></select>
+            <label><input type="checkbox" id="logXAxis" /> Log Scale</label>
+            <label title="Plot every lap end to end against session time/distance (for long-term, multi-lap trends) instead of overlaying laps"><input type="checkbox" id="wholeSessionInput" /> Whole Session</label>
+          </div>
+
+          <div>
+            <strong>Y Channels:</strong>
+            <input type="text" id="ySelectSearch" class="y-select-search" placeholder="Search channels..." autocomplete="off" />
+            <select id="ySelect" multiple size="6"></select>
+            <div class="plot-type-controls" title="Lines render much faster than markers for large telemetry files.">
+              <strong>Plot Type:</strong>
+              <label><input type="checkbox" id="plotTypeLines" checked /> Lines</label>
+              <label><input type="checkbox" id="plotTypeMarkers" /> Markers</label>
+            </div>
+            <label><input type="checkbox" id="logYAxis" /> Log Scale</label>
+            <div id="selectedYColors" class="selected-y-colors"></div>
+
+            <div class="color-axis-controls">
+              <div class="color-mode-row">
+                <strong>Color:</strong>
+                <label><input type="radio" name="colorMode" value="lap" checked /> By Lap</label>
+                <label><input type="radio" name="colorMode" value="channel" /> Per Y-Channel</label>
+                <label><input type="radio" name="colorMode" value="axis" /> Selected Channel</label>
+              </div>
+              <select id="colorAxisSelect" disabled></select>
+            </div>
+
+            <div class="binned-plot-controls">
+              <label><input type="checkbox" id="binnedPlotEnabled" /> Binned Plot</label>
+              <label>on channel <select id="binnedPlotAxis" disabled></select></label>
+              <label>Bin width: <input id="binnedPlotBinWidth" type="number" min="0.0001" step="0.1" value="1" disabled /></label>
+            </div>
+
+            <div id="quickModSection" class="quick-modify-section" hidden>
+              <div class="quick-mod-header">
+                <strong>Quick Modify:</strong>
+                <span id="quickModChannelName" class="quick-mod-channel-name"></span>
+              </div>
+              <div class="quick-mod-options">
+                <label><input type="checkbox" id="quickModNegate" /> ×(−1) Negate</label>
+                <label><input type="checkbox" id="quickModReciprocal" /> 1/x Reciprocal</label>
+                <label><input type="checkbox" id="quickModFilter" /> Forward/Back Filter</label>
+                <div id="quickModFilterControls" class="quick-mod-filter-controls" hidden>
+                  <label>Filter on channel <select id="quickModFilterAxis"></select></label>
+                  <label>Window (±): <input id="quickModFilterWindow" type="number" min="0.01" step="0.1" value="0.5" /></label>
+                </div>
+              </div>
+              <button id="quickModCreateBtn" type="button" class="quick-mod-create-btn" disabled>Create Math Channel from Mods</button>
+            </div>
+          </div>
+
+          <div class="math-channels-controls">
+            <div class="math-channels-header">
+              <strong>Math Channels:</strong>
+              <button id="addMathChannelBtn" type="button" class="math-ch-add-btn">+ Add</button>
+            </div>
+            <div id="mathChannelsList"></div>
+            <div id="mathChannelForm" hidden>
+              <div class="math-ch-field">
+                <label>Name</label>
+                <input id="mathChName" type="text" placeholder="e.g. Speed km/h" />
+              </div>
+              <div class="math-ch-field math-ch-expr-field">
+                <label>Expression (use {Channel Name})</label>
+                <input id="mathChExpr" type="text" placeholder="e.g. {Speed} * 3.6" autocomplete="off" />
+                <div id="mathChSuggestions" class="math-ch-suggestions" hidden></div>
+              </div>
+              <div id="mathChPreview" class="math-ch-preview" hidden></div>
+              <div class="math-ch-field">
+                <label>Unit (optional)</label>
+                <input id="mathChUnit" type="text" placeholder="e.g. km/h" style="width:50%" />
+              </div>
+              <div class="math-ch-field">
+                <label><input type="checkbox" id="mathChFilterEnabled" /> Forward/Back Filter</label>
+                <div id="mathChFilterControls" class="quick-mod-filter-controls" hidden>
+                  <label>Filter on channel <select id="mathChFilterAxis"></select></label>
+                  <label>Window (±): <input id="mathChFilterWindow" type="number" min="0.01" step="0.1" value="0.5" /></label>
+                </div>
+              </div>
+              <div id="mathChError" class="math-ch-error" hidden></div>
+              <div class="math-ch-btns">
+                <button id="mathChSave" type="button">Add Channel</button>
+                <button id="mathChCancel" type="button">Cancel</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="temp-profile-controls">
+            <div class="temp-profile-header">
+              <strong>Temperature Profile Plots:</strong>
+              <button id="addTempProfileBtn" type="button" class="temp-profile-add-btn">+ Add</button>
+              <button id="editTempProfileDefaultsBtn" type="button" class="temp-profile-defaults-btn" title="Edit the shared default colormap/range">Default Colors</button>
+            </div>
+            <div class="temp-profile-diff-row">
+              <label><input type="checkbox" id="tempProfileDiffEnabled" /> Show difference vs reference lap</label>
+              <label title="Symmetric color range for the lap difference">± <input type="number" id="tempProfileDiffRange" min="0.1" step="any" value="20" /></label>
+            </div>
+            <div id="tempProfileDiffHint" class="temp-profile-hidden-hint" hidden>
+              Lap difference needs X Axis = Distance and at least 2 selected laps.
+            </div>
+            <div id="tempProfilePlotsList"></div>
+            <div id="tempProfileHiddenHint" class="temp-profile-hidden-hint" hidden>
+              Temperature profile plots are shown only when X Axis is Time or Distance.
+            </div>
+          </div>
+
+          <div class="data-filters-controls">
+            <div class="data-filters-header">
+              <label><input type="checkbox" id="dataFiltersEnabled" checked /> <strong>Data Filters:</strong></label>
+              <button id="addDataFilterBtn" type="button" class="data-filter-add-btn">+ Add</button>
+            </div>
+            <div id="dataFiltersList"></div>
+            <div id="dataFilterForm" hidden>
+              <div class="data-filter-field">
+                <label>Channel</label>
+                <select id="dataFilterChannel"></select>
+              </div>
+              <div id="dataFilterRangeHint" class="data-filter-range-hint"></div>
+              <div id="dataFilterModeToggle" class="data-filter-mode-toggle" hidden>
+                <label><input type="radio" name="dataFilterMode" id="dataFilterModeRange" value="range" /> Range (min/max)</label>
+                <label><input type="radio" name="dataFilterMode" id="dataFilterModeDiscrete" value="discrete" /> Specific values</label>
+              </div>
+              <div id="dataFilterRangeField" class="data-filter-field data-filter-range-field">
+                <label>Min <input id="dataFilterMin" type="number" step="any" placeholder="no lower bound" /></label>
+                <label>Max <input id="dataFilterMax" type="number" step="any" placeholder="no upper bound" /></label>
+              </div>
+              <div id="dataFilterDiscreteField" class="data-filter-field" hidden>
+                <label>Values</label>
+                <select id="dataFilterValues" multiple size="6"></select>
+              </div>
+              <div id="dataFilterError" class="data-filter-error" hidden></div>
+              <div class="data-filter-btns">
+                <button id="dataFilterSave" type="button">Add Filter</button>
+                <button id="dataFilterCancel" type="button">Cancel</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label><input type="checkbox" id="shadeLaps" checked /> Shaded area between all laps</label>
+          </div>
+
+          <div class="corner-detect-controls">
+            <div class="corner-header-row">
+              <label><input type="checkbox" id="showCorners" checked /> Show Corners</label>
+              <button id="cornerEditToggleBtn" type="button" class="corner-edit-toggle-btn">Edit</button>
+            </div>
+            <!-- <label>Shading opacity (%)
+              <input id="cornerShadeOpacity" type="number" min="0" max="100" step="1" value="5" />
+            </label>
+            <label><input type="checkbox" id="cornerSwapLR" /> Swap left/right</label> -->
+            <div id="cornerTrackInfo" class="corner-track-info" aria-live="polite"></div>
+
+            <div id="cornerEditorPanel" class="corner-editor-panel" hidden>
+              <div id="cornerEditorStatus" class="corner-editor-status" aria-live="polite"></div>
+              <div id="cornerEditorList" class="corner-editor-list"></div>
+              <div class="corner-editor-hint">Click "Combine From" on one segment, then "Combine To" on another to select everything between them, then merge them as one type below. Renumber a segment or give it a nickname directly in its row. Split by entering a fraction of the way through the segment (0.5 = halfway).</div>
+              <div class="corner-editor-merge-row">
+                <span>Merge selected as:</span>
+                <button id="cornerEditorMergeStraight" type="button" data-type="straight">Straight</button>
+                <button id="cornerEditorMergeLeft" type="button" data-type="left">Left</button>
+                <button id="cornerEditorMergeRight" type="button" data-type="right">Right</button>
+              </div>
+              <div class="corner-editor-footer-row">
+                <button id="cornerEditorResetBtn" type="button" class="corner-editor-reset-btn">Reset to Auto-Detected</button>
+              </div>
+            </div>
+          </div>
+          <div class="plot-download-controls">
+            <button id="downloadDisplayedDataBtn" type="button">Download Displayed Data as CSV</button>
+          </div>
+        </div>
+      </details>
+
+      <details class="collapsible-action">
+        <summary class="collapsible-action-summary">
+          <span class="collapsible-action-label">Map Controls</span>
+          <span class="collapsible-caret" aria-hidden="true"></span>
+        </summary>
+        <div class="collapsible-action-body">
+          <label><input type="checkbox" id="showMap" checked /> Show Map</label>
+
+          <div class="map-color-controls">
+            <label><input type="checkbox" id="mapColorEnabled" checked /> Map Color</label>
+            <select id="mapColorSelect" checked></select>
+            <label>Map Render
+              <select id="mapDrawMode">
+                <option value="lines" selected>Lines</option>
+                <option value="scatter">Scatter (points)</option>
+              </select>
+            </label>
+            <label>Colormap
+              <select id="mapColorMode">
+                <option value="continuous">Continuous (Viridis)</option>
+                <option value="divergent" selected>Divergent</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="map-align-controls">
+            <strong>Map Alignment (Lat/Lon to X/Y)</strong>
+            <div class="xy-row">
+              <label>X Offset (m): <input id="mapXOffset" type="number" step="0.1" value="0" /></label>
+              <label>Y Offset (m): <input id="mapYOffset" type="number" step="0.1" value="0" /></label>
+            </div>
+            <div class="xy-row">
+              <label>Center Lat (deg): <input id="mapCenterLat" type="number" step="0.000001" placeholder="e.g. 40.123456" /></label>
+              <label>Center Lng (deg): <input id="mapCenterLon" type="number" step="0.000001" placeholder="e.g. -79.123456" /></label>
+            </div>
+            <div id="mapFitInfo" class="map-fit-info" aria-live="polite"></div>
+            <button id="mapFitBtn" type="button">Fit X,Y to Lat/Lng</button>
+          </div>
+
+          <div>
+            <button id="clearBtn">Clear All</button>
+          </div>
+        </div>
+      </details>
+
+
+      <details class="collapsible-action">
+        <summary class="collapsible-action-summary">
+          <span class="collapsible-action-label">User</span>
+          <span class="collapsible-caret" aria-hidden="true"></span>
+        </summary>
+        <div class="collapsible-action-body">
+
+          <p class="settings-io-hint">Uploaded data files are saved in your browser. Use the buttons below to load them into the plotter.</p>
+          <div id="storedFilesList" class="stored-files-list"></div>
+          <div class="stored-files-actions">
+            <button id="loadAllStoredFilesBtn" type="button">Load All Stored Files</button>
+            <button id="downloadAllDataBtn" type="button">Download All Data</button>
+            <button id="uploadDataBackupBtn" type="button">Upload Backup</button>
+            <input type="file" id="dataBackupFileInput" accept=".zip,application/zip,.json,application/json" hidden />
+            <button id="deleteAllStoredFilesBtn" type="button">Delete All Stored Files</button>
+          </div>
+          <div id="storedFilesStatus" class="settings-io-status" aria-live="polite"></div>
+          <!-- Shown while Download All Data prepares the backup (see createProgressDisplay in app.js). -->
+          <div id="storedFilesProgress" class="backup-progress" hidden>
+            <progress max="1"></progress>
+            <div class="backup-progress-text" aria-live="polite"></div>
+          </div>
+
+          <hr class="settings-divider" />
+          <p class="settings-io-hint">Browsers can clear this storage under space pressure or after a period of inactivity. Asking for permanent storage makes that less likely (not a guarantee) -- Download All Data above is still the reliable backup.</p>
+          <div class="storage-persist-row">
+            <button id="requestPersistBtn" type="button">Keep My Data (Request Permanent Storage)</button>
+            <div id="storagePersistStatus" class="settings-io-status" aria-live="polite"></div>
+          </div>
+
+          <hr class="settings-divider" />
+          <p class="settings-io-hint">Theme, panel sizes, math channels, data filters, and track corner/start-finish overrides.</p>
+          <div class="settings-io-controls">
+            <button id="downloadSettingsBtn" type="button">Download Settings</button>
+            <button id="uploadSettingsBtn" type="button">Upload Settings</button>
+            <input type="file" id="settingsFileInput" accept=".json,application/json" hidden />
+          </div>
+          <div id="settingsIoStatus" class="settings-io-status" aria-live="polite"></div>
+
+
+          <!-- Google Drive: START (stripped by scripts/build-production.js --no-google-drive) -->
+          <hr class="settings-divider" />
+          <p class="settings-io-hint">Optional: connect a Google Drive account to import CSVs from Drive and back up/restore from Drive, in addition to this device. Uses Google's restrictive "drive.file" scope -- this app can only see files it creates itself or files you explicitly pick.</p>
+          <div class="settings-io-controls">
+            <button id="googleDriveConnectBtn" type="button" hidden>Connect Google Drive</button>
+            <button id="googleDriveDisconnectBtn" type="button" hidden>Disconnect Google Drive</button>
+          </div>
+          <div id="googleDriveStatus" class="settings-io-status" aria-live="polite">Not connected.</div>
+          <div id="googleDriveActions" class="settings-io-controls" hidden>
+            <button id="googleDriveBackupAllBtn" type="button">Backup All Data to Drive</button>
+            <button id="googleDriveRestoreAllBtn" type="button">Restore Backup from Drive</button>
+            <button id="googleDriveBackupVehiclesRidersBtn" type="button">Backup Vehicles &amp; Riders to Drive</button>
+            <button id="googleDriveRestoreVehiclesRidersBtn" type="button">Restore Vehicles &amp; Riders from Drive</button>
+          </div>
+          <div id="googleDriveActionsStatus" class="settings-io-status" aria-live="polite"></div>
+          <!-- Shown while Backup All Data to Drive prepares and uploads the backup. -->
+          <div id="googleDriveProgress" class="backup-progress" hidden>
+            <progress max="1"></progress>
+            <div class="backup-progress-text" aria-live="polite"></div>
+          </div>
+          <!-- Google Drive: END -->
+        </div>
+      </details>
+
+
+      <!-- Sidebar footer: the version, and the light/dark switch -- kept down here, out of
+           the way of the actual controls: version on the left, switch on the right. -->
+      <div class="controls-footer">
+        <div id="appVersionLabel" class="controls-version" aria-label="Application version">Version 2026-10-01c</div>
+        <button type="button" id="themeToggleBtn" class="theme-toggle-switch" role="switch" aria-checked="false" aria-label="Switch to dark mode">
+          <span class="theme-toggle-track" aria-hidden="true">
+            <svg class="theme-toggle-icon theme-toggle-icon-sun" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <circle cx="12" cy="12" r="5" stroke="none"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="theme-toggle-icon theme-toggle-icon-moon" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span class="theme-toggle-thumb"></span>
+          </span>
+          <span class="theme-toggle-text sr-only" id="themeToggleLabel">Dark Mode</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="plot">
+      <div class="plot-canvas-wrap">
+        <div id="plotDiv"></div>
+      </div>
+      <div id="colorAxisLegend" class="color-axis-legend" hidden></div>
+      <div id="selectionStatsPanel" class="selection-stats-panel" hidden>
+        <div id="selectionStatsHeader" class="selection-stats-header">
+          <span>Selection Stats</span>
+          <button id="selectionStatsClose" class="selection-stats-close" aria-label="Close selection stats">✕</button>
+        </div>
+        <div class="selection-stats-controls">
+          <label class="selection-stats-fit-type-label">Fit Type
+            <select id="selectionFitTypeSelect">
+              <option value="linear">Linear</option>
+              <option value="sinusoidal">Sinusoidal</option>
+              <option value="sineExponential">Sine with Exponential Envelope</option>
+              <option value="exponential">Exponential</option>
+              <option value="firstOrderResponse">1st-Order Step Response</option>
+              <option value="secondOrderResponse">2nd-Order Step Response</option>
+              <option value="ellipse">Ellipse</option>
+              <option value="formula">Typed Formula</option>
+            </select>
+          </label>
+          <label id="selectionFitSlopeUnitsRow" class="selection-stats-fit-slope-units-row" hidden>Slope Units
+            <select id="selectionFitSlopeUnitsSelect">
+              <option value="auto">Auto (Y / X units)</option>
+              <option value="g">g (avg accel/decel)</option>
+            </select>
+          </label>
+          <div id="selectionFitEquationRow" class="selection-stats-fit-equation"></div>
+          <label id="selectionFitFormulaRow" class="selection-stats-fit-formula-row" hidden>f(t)=
+            <input id="selectionFitFormulaInput" type="text" autocomplete="off" spellcheck="false" value="p0*sin(p1*t + p2) + p3" />
+          </label>
+          <div id="selectionFitFormulaHint" class="selection-stats-fit-formula-hint" hidden>Use <code>t</code> for the x-value, <code>p0</code>–<code>p11</code> for fitted parameters (any subset, any order), and math names like <code>sin cos exp sqrt abs pow PI</code>. Example: a decaying cosine -- <code>p0*exp(-p1*t)*cos(p2*t+p3) + p4</code></div>
+          <div id="selectionFitFormulaError" class="selection-stats-fit-formula-error" hidden></div>
+          <label class="selection-stats-fft-toggle-label">
+            <input type="checkbox" id="selectionFftEnabled" /> Show FFT
+          </label>
+          <div id="selectionFftHint" class="selection-stats-fft-hint" hidden>With Sinusoidal fit selected, click a point in the FFT chart to force the fit to that frequency.</div>
+        </div>
+        <div id="selectionStatsBody" class="selection-stats-body"></div>
+      </div>
+      <div id="fftPanel" class="fft-panel" hidden>
+        <div id="fftPanelHeader" class="selection-stats-header">
+          <span>FFT of Selection</span>
+          <button id="fftClearForcedBtn" class="fft-clear-forced-btn" hidden title="Return the sine fit to auto-searching for the best frequency">Auto</button>
+          <button id="fftPanelClose" class="selection-stats-close" aria-label="Close FFT panel">✕</button>
+        </div>
+        <div id="fftPlotDiv" class="fft-plot-div"></div>
+      </div>
+      <div class="maps-container">
+        <div id="mapDiv" class="map-panel"></div>
+        <div id="leafletMapDiv" class="map-panel"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="importerEditorModal" class="importer-editor-modal" hidden>
+    <div id="importerEditorBackdrop" class="importer-editor-backdrop"></div>
+    <div class="importer-editor-dialog" role="dialog" aria-modal="true" aria-labelledby="importerEditorTitle">
+      <div class="importer-editor-header">
+        <h2 id="importerEditorTitle">Custom Importer</h2>
+        <button id="importerEditorClose" type="button" class="importer-editor-close" aria-label="Close importer editor">🗙</button>
+      </div>
+      <div id="importerEditorSubtitle" class="importer-editor-subtitle"></div>
+      <div id="importerHeaderOverrideSection" class="importer-header-override-section" hidden>
+        <h3>Header Rows</h3>
+        <p class="importer-header-override-hint">If the auto-detected channel names look wrong (e.g. lap-time or metadata values showing up as channels), switch to manual and pick the correct rows from the preview below.</p>
+        <div class="importer-header-override-toggle" role="radiogroup" aria-label="Header row detection mode">
+          <label><input type="radio" name="importerHeaderMode" id="importerHeaderModeAuto" value="auto" /> Detect automatically</label>
+          <label><input type="radio" name="importerHeaderMode" id="importerHeaderModeManual" value="manual" /> Set manually</label>
+        </div>
+        <div id="importerHeaderOverrideFields" class="importer-header-override-fields" hidden>
+          <label>Header row
+            <input type="number" id="importerHeaderRowInput" min="1" step="1" />
+          </label>
+          <label>Units row (optional)
+            <input type="number" id="importerUnitsRowInput" min="1" step="1" placeholder="none" />
+          </label>
+          <label>First data row
+            <input type="number" id="importerDataStartRowInput" min="1" step="1" />
+          </label>
+        </div>
+        <div id="importerRowPreview" class="importer-row-preview" role="list"></div>
+      </div>
+      <div class="importer-editor-frequency-row">
+        <span>Data Frequency: <strong id="importerEditorDataFreqValue">n/a</strong></span>
+        <label>Resample To (Hz)
+          <input id="importerEditorDownsampleHz" type="number" min="0.1" step="0.1" placeholder="Keep original" />
+        </label>
+      </div>
+      <div class="importer-editor-table-wrap">
+        <table class="importer-editor-table">
+          <thead>
+            <tr>
+              <th>Standard Channel</th>
+              <th>Source Column</th>
+              <th>Filter</th>
+              <th>Axis</th>
+              <th>Window (&plusmn;)</th>
+            </tr>
+          </thead>
+          <tbody id="importerEditorRows"></tbody>
+        </table>
+      </div>
+      <div class="importer-custom-standards">
+        <h3>Custom Standard Channels</h3>
+        <div class="importer-custom-standard-entry">
+          <input id="importerCustomStandardName" type="text" placeholder="Standard channel name" maxlength="64" />
+          <input id="importerCustomStandardUnit" type="text" placeholder="Unit (optional)" maxlength="24" />
+          <button id="importerCustomStandardAdd" type="button">Add</button>
+        </div>
+        <div id="importerCustomStandardList" class="importer-custom-standard-list"></div>
+      </div>
+      <div id="importerEditorError" class="importer-editor-error" hidden></div>
+      <div class="importer-editor-actions">
+        <button id="importerEditorCancel" type="button">Cancel</button>
+        <button id="importerEditorSave" type="button">Save and Reprocess</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- <footer>
+    <small>Supports CSVs with headers. Detects `Time`/`Timestamp` and `Distance` columns. Computes distance if `lat`/`lon` present.</small>
+  </footer> -->
+
+  <script src="gpbikes-plotter.bundle.min.js"></script>
+
+</body>
+</html>

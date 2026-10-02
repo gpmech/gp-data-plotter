@@ -1,0 +1,4 @@
+Variant: public
+Version: 2026-10-01c
+Built: 2026-10-02T17:38:43.144Z
+From: csv-plotter\dist\public

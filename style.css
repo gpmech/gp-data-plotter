@@ -1,0 +1,1155 @@
+:root{
+	color-scheme:light;
+	--bg-page:#f7f9fb;
+	--bg-surface:#fff;
+	--bg-surface-alt:#f1f6fb;
+	--bg-surface-alt-2:#f6faff;
+	--bg-subtle:#fbfdff;
+	--bg-hover:#e6f0fb;
+
+	--text-primary:#0b2545;
+	--text-secondary:#1a3c6b;
+	--text-muted:#5a6b82;
+	--text-active:#12386b;
+
+	--border:#cbd6e2;
+	--border-dashed:#e7edf5;
+	--border-strong:#dce7f4;
+
+	--accent-active-bg:#dcecff;
+	--accent-active-border:#95b7ef;
+	--accent-active-text:#12386b;
+
+	--danger-text:#c00;
+	--danger-bg:#fff5f5;
+	--danger-bg-hover:#ffe0e0;
+	--danger-border:#f8c8c8;
+
+	--edit-text:#1a4b8c;
+	--edit-bg:#f0f5ff;
+	--edit-bg-hover:#deeaff;
+	--edit-border:#c8d8f8;
+
+	--success-text:#1a6b2a;
+	--success-bg:#edfbf0;
+	--success-border:#b3e8c0;
+
+	--warning-bg:#fff3d6;
+	--warning-bg-strong:#ffe6a8;
+	--warning-border:#e0b04a;
+	--warning-text:#7a4a00;
+
+	--shadow-sm:rgba(10,20,40,0.04);
+	--shadow-md:rgba(10,20,40,0.12);
+	--shadow-lg:rgba(10,20,40,0.18);
+	--shadow-xl:rgba(10,20,40,0.2);
+
+	--overlay-bg:rgba(5,16,36,0.45);
+	--swatch-border:rgba(11,37,69,0.25);
+	--panel-bg-translucent:rgba(255,255,255,0.97);
+}
+
+:root[data-theme="dark"]{
+	color-scheme:dark;
+	--bg-page:#0f1520;
+	--bg-surface:#1a222c;
+	--bg-surface-alt:#212b38;
+	--bg-surface-alt-2:#1c2530;
+	--bg-subtle:#19212b;
+	--bg-hover:#2a3a4d;
+
+	--text-primary:#e8eef7;
+	--text-secondary:#a9c3e8;
+	--text-muted:#90a0b8;
+	--text-active:#cfe0f8;
+
+	--border:#34424f;
+	--border-dashed:#29323d;
+	--border-strong:#3a4652;
+
+	--accent-active-bg:#23415f;
+	--accent-active-border:#4d7bb5;
+	--accent-active-text:#cfe0f8;
+
+	--danger-text:#ff8a8a;
+	--danger-bg:#3a1f22;
+	--danger-bg-hover:#4a2830;
+	--danger-border:#6b3a42;
+
+	--edit-text:#7fb2f5;
+	--edit-bg:#1c2740;
+	--edit-bg-hover:#263852;
+	--edit-border:#3a4f75;
+
+	--success-text:#7ee096;
+	--success-bg:#16301f;
+	--success-border:#2e5c3d;
+
+	--warning-bg:#4a3a15;
+	--warning-bg-strong:#5c4718;
+	--warning-border:#8a6a2e;
+	--warning-text:#e0b262;
+
+	--shadow-sm:rgba(0,0,0,0.35);
+	--shadow-md:rgba(0,0,0,0.45);
+	--shadow-lg:rgba(0,0,0,0.55);
+	--shadow-xl:rgba(0,0,0,0.6);
+
+	--overlay-bg:rgba(0,0,0,0.65);
+	--swatch-border:rgba(255,255,255,0.3);
+	--panel-bg-translucent:rgba(26,34,44,0.97);
+}
+
+/* Graphite brand: the public and premium builds set data-brand="graphite" on <html> (see
+   scripts/build-production.js) so they're easy to tell apart from the work build, which
+   keeps the navy palette above: charcoal and warm grays, with amber as the accent. The
+   default palette's "navy" is mostly in its neutrals -- the text, the blue-tinted
+   button/panel backgrounds and the blue-gray borders -- so those are re-tinted too, not
+   just the accents. White surfaces, muted text and the danger/warning/success colours stay
+   as they are (amber sits close to the warning colours, which is a known trade-off). The
+   light block excludes dark mode explicitly, since it would otherwise tie with (and, coming
+   later, beat) the dark-mode block above. */
+:root[data-brand="graphite"]:not([data-theme="dark"]){
+	--bg-page:#f5f5f4;
+	--bg-surface-alt:#efeeec;
+	--bg-surface-alt-2:#f8f8f7;
+	--bg-subtle:#fafaf9;
+	--bg-hover:#fcefdc;
+
+	--text-primary:#1f2328;
+	--text-secondary:#3d444d;
+	--text-active:#9a4506;
+
+	--border:#d0d2d6;
+	--border-dashed:#e7e8ea;
+	--border-strong:#dcdde0;
+
+	--accent-active-bg:#fde9cf;
+	--accent-active-border:#e4a253;
+	--accent-active-text:#9a4506;
+
+	--edit-text:#9a4506;
+	--edit-bg:#fdf3e6;
+	--edit-bg-hover:#fbe6cb;
+	--edit-border:#efc58f;
+}
+
+:root[data-brand="graphite"][data-theme="dark"]{
+	--bg-page:#111315;
+	--bg-surface:#1b1d20;
+	--bg-surface-alt:#232629;
+	--bg-surface-alt-2:#1e2124;
+	--bg-subtle:#191b1e;
+	--bg-hover:#3a2d1d;
+
+	--text-primary:#e9eaec;
+	--text-secondary:#c2c6cc;
+	--text-active:#f5bd78;
+
+	--border:#383c42;
+	--border-dashed:#2a2d32;
+	--border-strong:#41464d;
+
+	--accent-active-bg:#4a3419;
+	--accent-active-border:#b07a33;
+	--accent-active-text:#f5bd78;
+
+	--edit-text:#f0a85a;
+	--edit-bg:#32271a;
+	--edit-bg-hover:#423221;
+	--edit-border:#6b4c26;
+
+	--panel-bg-translucent:rgba(27,29,32,0.97);
+}
+
+/* The graphite builds' signature: a charcoal title bar with an amber stripe under it, so
+   the version is obvious at a glance (the retinted neutrals above are deliberately
+   subtle). The work build keeps its plain header. */
+:root[data-brand="graphite"]{
+	--brand-bar-bg:#24292f;
+	--brand-bar-text:#ffffff;
+	--brand-bar-stripe:#d97706;
+}
+:root[data-brand="graphite"][data-theme="dark"]{
+	--brand-bar-bg:#0b0c0e;
+	--brand-bar-text:#e9eaec;
+	--brand-bar-stripe:#f59e0b;
+}
+:root[data-brand="graphite"] header{background:var(--brand-bar-bg);border-bottom:3px solid var(--brand-bar-stripe);padding:8px 16px}
+:root[data-brand="graphite"] .app-title{color:var(--brand-bar-text)}
+:root[data-brand="graphite"] .hamburger-btn{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.3)}
+:root[data-brand="graphite"] .hamburger-btn span{background:var(--brand-bar-text)}
+
+*{box-sizing:border-box;font-family:Segoe UI, Roboto, Arial, sans-serif}
+/* Author styles beat the UA stylesheet's [hidden]{display:none} regardless of
+   specificity, so any element that both sets its own `display` via a class and is
+   toggled with the `hidden` attribute needs this to actually hide. */
+[hidden]{display:none!important}
+html,body{width:100%;max-width:100%;overflow-x:clip;}
+body{margin:0;padding:0;background:var(--bg-page);color:var(--text-primary);position:relative;transition:background-color 0.15s ease,color 0.15s ease}
+header{display:none;overflow-x:clip}
+header{display:block;padding:6px 16px 0;overflow-x:clip}
+.header-top{display:flex;align-items:center;justify-content:flex-start;gap:12px;min-width:0}
+.app-title{margin:0;font-size:1.25rem;font-weight:600;line-height:1;color:var(--text-primary);overflow-wrap:anywhere}
+main{display:flex;gap:16px;padding:16px;min-width:0;max-width:100%;overflow-x:clip}
+.controls{width:360px;background:var(--bg-surface);padding:12px;border-radius:6px;box-shadow:0 1px 4px var(--shadow-sm);display:flex;flex-direction:column;gap:16px;transition:background-color 0.15s ease}
+.controls-header{display:none;align-items:center;justify-content:space-between;margin-bottom:10px;min-width:0}
+/* Visually hides content while keeping it in the accessibility tree -- used to keep a
+   text label for screen readers on icon-only controls without showing it on screen. */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Strictly two-color sliding pill switch: --toggle-a and --toggle-b are always each
+   other's opposite between track and thumb (never both the same role), and the sun/moon
+   icons (Feather Icons glyphs, MIT licensed, filled rather than outlined) are always
+   colored to match the thumb -- so in light mode the light-colored thumb sits over the
+   sun (hiding it, since they're now the same color) while the dark moon icon shows
+   against the dark track, and dark mode does the reverse. No other colors involved. */
+:root{
+	--toggle-a:#ffffff;
+	--toggle-b:#171d27;
+}
+.theme-toggle-switch{display:inline-flex;flex:0 0 auto;align-items:center;padding:4px 0 4px 10px;background:transparent;border:none;cursor:pointer}
+.theme-toggle-track{position:relative;display:flex;align-items:center;justify-content:space-between;box-sizing:border-box;flex:0 0 auto;width:52px;height:26px;padding:0 5px;border-radius:999px;background:var(--toggle-b);transition:background-color 0.3s ease}
+.theme-toggle-icon{position:relative;z-index:1;width:14px;height:14px;flex:0 0 auto;color:var(--toggle-a);transition:color 0.3s ease}
+.theme-toggle-thumb{position:absolute;top:3px;left:3px;z-index:2;width:20px;height:20px;border-radius:50%;background:var(--toggle-a);box-shadow:0 1px 3px rgba(0,0,0,0.35);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1),background-color 0.3s ease}
+.theme-toggle-switch:active .theme-toggle-thumb{filter:brightness(0.94)}
+:root[data-theme="dark"] .theme-toggle-track{background:var(--toggle-a)}
+:root[data-theme="dark"] .theme-toggle-icon{color:var(--toggle-b)}
+:root[data-theme="dark"] .theme-toggle-thumb{background:var(--toggle-b);transform:translateX(26px)}
+.file-item{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed var(--border-dashed);gap:4px}
+.file-toggle{display:flex;align-items:center;gap:8px;min-width:0;flex:1}
+.file-name-wrap{display:flex;align-items:center;gap:8px;min-width:0}
+.file-name-wrap strong{overflow-wrap:anywhere}
+.file-line-preview{display:inline-flex;align-items:center;color:var(--text-muted);flex:0 0 auto}
+.file-line-preview svg{display:block;width:44px;height:8px}
+.file-synthetic-remove-btn{margin-left:auto;padding:2px 8px;font-size:11px;border:1px solid var(--danger-border);border-radius:4px;color:var(--danger-text);background:var(--danger-bg);cursor:pointer;flex:0 0 auto}
+.file-decoder-row{display:flex;align-items:center;gap:4px;flex:0 0 100%;margin-left:26px;font-size:0.82em}
+.file-decoder-badge{color:var(--text-muted);background:var(--bg-surface-alt);border:1px solid var(--border-dashed);border-radius:3px;padding:1px 6px;white-space:nowrap}
+.file-decoder-edit{padding:1px 5px;font-size:0.8em;color:var(--edit-text);border-color:var(--edit-border);background:var(--edit-bg)}
+.file-decoder-edit:hover{background:var(--edit-bg-hover)}
+.file-decoder-selector{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.file-decoder-select{font-size:0.82em;padding:2px 4px;max-width:160px}
+.file-decoder-custom-indicator{font-size:0.8em;color:var(--success-text);background:var(--success-bg);border:1px solid var(--success-border);border-radius:3px;padding:1px 6px;white-space:nowrap}
+.file-importer-customize-btn{padding:1px 6px;font-size:0.84em;line-height:1;border-radius:4px;cursor:pointer}
+.importer-editor-modal{position:fixed;inset:0;z-index:1500;display:flex;align-items:center;justify-content:center;padding:18px}
+.importer-editor-backdrop{position:absolute;inset:0;background:var(--overlay-bg)}
+.importer-editor-dialog{position:relative;z-index:1;width:min(980px,100%);max-height:min(82vh,720px);display:flex;flex-direction:column;gap:10px;background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 16px 42px var(--shadow-xl);padding:12px}
+.importer-editor-header{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.importer-editor-header h2{margin:0;font-size:1.05rem}
+.importer-editor-close{padding:2px 9px;border-radius:4px;cursor:pointer}
+.importer-editor-subtitle{font-size:0.86em;color:var(--text-muted)}
+.importer-editor-frequency-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:0.86em}
+.importer-editor-frequency-row label{display:inline-flex;align-items:center;gap:6px}
+.importer-editor-frequency-row input[type=number]{width:130px}
+.importer-editor-table-wrap{overflow:auto;border:1px solid var(--border-dashed);border-radius:6px;background:var(--bg-subtle)}
+.importer-editor-table{width:100%;border-collapse:collapse;font-size:0.84em}
+.importer-editor-table th,.importer-editor-table td{padding:6px 8px;border-bottom:1px dashed var(--border-dashed);vertical-align:middle;text-align:left}
+.importer-editor-table th{position:sticky;top:0;background:var(--bg-surface-alt);z-index:1}
+.importer-editor-table td select,.importer-editor-table td input[type=number]{width:100%;min-width:110px}
+.importer-editor-table td input[type=number]{max-width:130px}
+.importer-editor-actions{display:flex;justify-content:flex-end;gap:8px}
+.importer-editor-error{font-size:0.84em;color:var(--danger-text);background:var(--danger-bg);border:1px solid var(--danger-border);border-radius:4px;padding:5px 8px}
+.importer-header-override-section{display:flex;flex-direction:column;gap:6px;padding:8px;border:1px dashed var(--border-dashed);border-radius:6px;background:var(--bg-subtle)}
+.importer-header-override-section h3{margin:0;font-size:0.9rem}
+.importer-header-override-hint{margin:0;font-size:0.8em;color:var(--text-muted)}
+.importer-header-override-toggle{display:flex;gap:14px;flex-wrap:wrap;font-size:0.86em}
+.importer-header-override-toggle label{display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.importer-header-override-fields{display:flex;gap:12px;flex-wrap:wrap;font-size:0.86em}
+.importer-header-override-fields label{display:flex;flex-direction:column;gap:3px}
+.importer-header-override-fields input[type=number]{width:110px}
+.importer-row-preview{max-height:220px;overflow:auto;border:1px solid var(--border-dashed);border-radius:6px;background:var(--bg-surface);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.78em}
+.importer-row-preview-row{display:flex;gap:8px;padding:2px 8px;border-bottom:1px solid var(--border-dashed);white-space:nowrap}
+.importer-row-preview-row:last-child{border-bottom:none}
+.importer-row-preview-num{flex:0 0 auto;min-width:2.4em;color:var(--text-muted);text-align:right}
+.importer-row-preview-text{overflow:hidden;text-overflow:ellipsis}
+.importer-row-preview-row.is-header-row{background:var(--accent-active-bg);color:var(--accent-active-text);font-weight:600}
+.importer-row-preview-row.is-units-row{background:var(--warning-bg)}
+.importer-row-preview-row.is-data-row{background:var(--success-bg)}
+.importer-row-preview-more{padding:4px 8px;color:var(--text-muted);font-style:italic}
+.importer-custom-standards{display:flex;flex-direction:column;gap:6px;padding:8px;border:1px dashed var(--border-dashed);border-radius:6px;background:var(--bg-subtle)}
+.importer-custom-standards h3{margin:0;font-size:0.9rem}
+.importer-custom-standard-entry{display:grid;grid-template-columns:minmax(180px,1.6fr) minmax(120px,1fr) auto;gap:6px;align-items:center}
+.importer-custom-standard-entry input{width:100%}
+.importer-custom-standard-list{display:flex;flex-direction:column;gap:4px;max-height:120px;overflow:auto}
+.importer-custom-standard-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 6px;border:1px solid var(--border-dashed);border-radius:4px;background:var(--bg-surface)}
+.importer-custom-standard-item button{padding:2px 8px;font-size:0.8em}
+.importer-custom-standard-empty{font-size:0.82em;color:var(--text-muted)}
+.file-startfinish-row{display:flex;align-items:center;gap:6px;flex:0 0 100%;margin-left:26px;margin-top:4px;flex-wrap:wrap}
+.file-startfinish-edit-btn{padding:2px 8px;font-size:0.82em;border-radius:4px;cursor:pointer}
+.file-startfinish-edit-btn.is-active{background:var(--accent-active-bg);border-color:var(--accent-active-border);color:var(--accent-active-text)}
+.file-startfinish-badge{color:var(--text-muted);background:var(--bg-surface-alt);border:1px solid var(--border-dashed);border-radius:3px;padding:1px 6px;font-size:0.82em;white-space:nowrap}
+.file-startfinish-clear-btn{padding:1px 6px;font-size:0.8em;color:var(--danger-text);border-color:var(--danger-border);background:var(--danger-bg);cursor:pointer}
+.file-startfinish-clear-btn:hover{background:var(--danger-bg-hover)}
+.file-startfinish-editor{flex:0 0 100%;margin-left:26px;margin-top:6px;border:1px solid var(--border);border-radius:4px;padding:6px 8px;background:var(--bg-subtle);display:flex;flex-direction:column;gap:6px}
+.file-startfinish-status{font-size:0.82em;color:var(--text-muted)}
+.file-startfinish-editor-btns{display:flex;gap:6px}
+.file-startfinish-apply-btn,.file-startfinish-cancel-btn{padding:3px 10px;font-size:0.82em;border-radius:4px;cursor:pointer}
+.file-startfinish-apply-btn:disabled{opacity:0.5;cursor:not-allowed}
+.plots-body select{width:100%}
+/* Was `.plots-body #xCustomSelect` sizing the native select directly -- it's now hidden by
+   enhanceSelectWithSearch, so target its wrapper instead. block display puts it on its own
+   line (its default inline-block would otherwise let "Log Scale" share the line with it, since
+   its visible trigger is only as wide as the current channel name, not the old select's
+   full-list-based intrinsic width), and lets the trigger's own width:100% fill that line. */
+.plots-body [data-wrap-for="xCustomSelect"]{display:block;margin-top:6px}
+.plot-type-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:6px;font-size:0.9em}
+.plot-type-controls strong{font-size:0.95em}
+.color-axis-controls{display:flex;flex-direction:column;gap:6px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-dashed)}
+.color-axis-controls select{width:100%}
+.color-mode-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:0.92em}
+.binned-plot-controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-dashed);font-size:0.92em}
+.binned-plot-controls select{max-width:160px}
+.binned-plot-controls input[type=number]{width:70px}
+.plot-download-controls{display:flex;flex-wrap:wrap;gap:8px}
+.color-axis-legend{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:4px 8px;font-size:0.85em;color:var(--text-primary)}
+.color-axis-legend-item{display:inline-flex;align-items:center;gap:5px;border:1px solid transparent;background:none;padding:2px 6px;border-radius:4px;cursor:pointer;font:inherit;color:inherit}
+.color-axis-legend-item:hover{background:var(--bg-hover);border-color:var(--border-dashed)}
+.color-axis-legend-item.is-hidden{opacity:0.4;text-decoration:line-through}
+.color-axis-legend-swatch{width:11px;height:11px;border-radius:2px;display:inline-block;flex:0 0 auto;border:1px solid var(--swatch-border)}
+.y-select-search{display:block;width:100%;box-sizing:border-box;margin:4px 0 6px}
+.selected-y-colors{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.selected-y-color-item{display:flex;align-items:center;gap:8px;font-size:0.92em;flex-wrap:wrap}
+.selected-y-color-item input[type=color]{width:28px;height:24px;padding:0;border:none;background:transparent;cursor:pointer}
+.selected-y-color-item span{overflow-wrap:anywhere;flex:1;min-width:0}
+.selected-y-channel-actions{display:inline-flex;align-items:center;gap:4px;flex:0 0 auto}
+.selected-y-axis-row{flex:0 0 100%;display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:0.82em;color:var(--text-secondary);margin-left:36px}
+.selected-y-axis-row .selected-y-axis-label{flex:0 0 auto;color:var(--text-secondary)}
+.selected-y-axis-row label{display:inline-flex;align-items:center;gap:3px;cursor:pointer;white-space:nowrap}
+.selected-y-axis-row input[type=radio]{margin:0;cursor:pointer}
+.selected-y-action-btn{padding:2px 6px;font-size:0.84em;line-height:1;border-radius:4px;border:1px solid var(--border);background:var(--bg-surface-alt-2);color:var(--text-secondary);cursor:pointer}
+.selected-y-action-btn:hover:not(:disabled){background:var(--bg-hover)}
+.selected-y-action-btn.is-active{background:var(--accent-active-bg);border-color:var(--accent-active-border);color:var(--accent-active-text)}
+.selected-y-action-btn:disabled{opacity:0.45;cursor:default}
+.quick-modify-section{padding-top:6px;border-top:1px dashed var(--border-dashed);margin-top:6px}
+.quick-mod-header{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.quick-mod-header strong{flex:0 0 auto}
+.quick-mod-channel-name{font-size:0.9em;color:var(--text-secondary);font-weight:600;overflow-wrap:anywhere}
+.quick-mod-options{display:flex;flex-direction:column;gap:4px;font-size:0.9em}
+.quick-mod-filter-controls{display:flex;align-items:center;gap:6px;margin-left:20px;margin-top:3px;flex-wrap:wrap;font-size:0.85em}
+.quick-mod-filter-controls input[type=number]{width:60px}
+.quick-mod-filter-controls select{font-size:0.85em}
+.quick-mod-create-btn{margin-top:8px;width:100%;padding:5px;font-size:0.85em;background:var(--edit-bg);border:1px solid var(--edit-border);color:var(--text-secondary);border-radius:4px;cursor:pointer}
+.quick-mod-create-btn:hover:not(:disabled){background:var(--edit-bg-hover)}
+.quick-mod-create-btn:disabled{opacity:0.5;cursor:default}
+.math-ch-smooth-info{color:var(--text-muted);font-size:0.85em;font-style:italic}
+.math-channels-controls{padding-top:6px;border-top:1px dashed var(--border-dashed)}
+.math-channels-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.math-ch-add-btn{padding:2px 8px;font-size:0.82em}
+.math-ch-item{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px dashed var(--border-dashed);font-size:0.85em}
+.math-ch-name{font-weight:600;flex:0 0 auto;max-width:40%;overflow-wrap:anywhere}
+.math-ch-expr{flex:1;color:var(--text-muted);overflow-wrap:anywhere;font-family:monospace;font-size:0.92em}
+.math-ch-edit{padding:2px 6px;font-size:0.8em;flex:0 0 auto;color:var(--edit-text);border-color:var(--edit-border);background:var(--edit-bg)}
+.math-ch-edit:hover{background:var(--edit-bg-hover)}
+.math-ch-delete{padding:2px 6px;font-size:0.8em;flex:0 0 auto;color:var(--danger-text);border-color:var(--danger-border);background:var(--danger-bg)}
+.math-ch-delete:hover{background:var(--danger-bg-hover)}
+#mathChannelForm{border:1px solid var(--border-strong);border-radius:4px;padding:8px;background:var(--bg-page);margin-top:6px}
+.math-ch-field{margin-bottom:6px}
+.math-ch-field label{display:block;font-size:0.85em;margin-bottom:2px;color:var(--text-muted)}
+.math-ch-field input{width:100%}
+.math-ch-error{color:var(--danger-text);font-size:0.83em;margin-bottom:6px}
+.math-ch-btns{display:flex;gap:8px}
+.math-ch-preview{font-size:0.83em;padding:4px 6px;border-radius:3px;margin-bottom:6px}
+.math-ch-preview-ok{color:var(--success-text);background:var(--success-bg);border:1px solid var(--success-border)}
+.math-ch-preview-error{color:var(--danger-text);background:var(--danger-bg);border:1px solid var(--danger-border)}
+.math-ch-preview-neutral{color:var(--text-muted);background:var(--bg-surface-alt-2);border:1px solid var(--border-dashed)}
+.math-ch-expr-field{position:relative}
+.math-ch-suggestions{position:absolute;z-index:200;left:0;top:100%;width:100%;background:var(--bg-surface);border:1px solid var(--border);border-radius:4px;box-shadow:0 2px 8px var(--shadow-md);max-height:160px;overflow-y:auto}
+.math-ch-suggestion{padding:5px 10px;cursor:pointer;font-size:0.88em;font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.math-ch-suggestion:hover,.math-ch-suggestion.active{background:var(--bg-hover)}
+
+/* Searchable-select enhancement (see enhanceSelectWithSearch in app.js): the real <select> is
+   hidden and a lookalike button takes its place as the visible/clickable control, since modern
+   browsers no longer let script suppress a <select>'s own native popup. The floating list panel
+   is positioned via JS in fixed (viewport) coordinates since it can be opened from inside a
+   scrolling container like the importer table. */
+.searchable-select-wrap{position:relative;display:inline-block;max-width:100%;vertical-align:middle}
+.searchable-select-native{display:none}
+.searchable-select-trigger{display:block;width:100%;min-width:110px;max-width:100%;box-sizing:border-box;text-align:left;background:var(--bg-surface);color:var(--text-primary);border:1px solid var(--border);border-radius:4px;padding:4px 22px 4px 6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;position:relative;cursor:pointer}
+.searchable-select-trigger:hover{background:var(--bg-hover)}
+.searchable-select-trigger:disabled{opacity:0.6;cursor:default;background:var(--bg-surface)}
+.searchable-select-trigger::after{content:"";position:absolute;right:8px;top:50%;width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--text-muted);transform:translateY(-50%)}
+.color-axis-controls .searchable-select-wrap,
+.map-color-controls .searchable-select-wrap{width:100%}
+.searchable-select-panel{position:fixed;z-index:3000;display:flex;flex-direction:column;background:var(--bg-surface);border:1px solid var(--border);border-radius:4px;box-shadow:0 4px 16px var(--shadow-md)}
+.searchable-select-input{box-sizing:border-box;width:100%;border:none;border-bottom:1px solid var(--border-dashed);border-radius:0;padding:6px 8px;background:var(--bg-surface);color:var(--text-primary)}
+.searchable-select-input:focus{outline:none}
+.searchable-select-list{max-height:220px;overflow-y:auto}
+.searchable-select-item{padding:5px 8px;cursor:pointer;font-size:0.9em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.searchable-select-item:hover,.searchable-select-item.active{background:var(--bg-hover)}
+.searchable-select-item.is-current{font-weight:600}
+.searchable-select-empty{padding:6px 8px;color:var(--text-muted);font-size:0.85em}
+.temp-profile-controls{padding-top:6px;border-top:1px dashed var(--border-dashed)}
+.temp-profile-header{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.temp-profile-header strong{margin-right:auto}
+.temp-profile-add-btn,.temp-profile-defaults-btn{padding:2px 8px;font-size:0.82em}
+.temp-profile-item{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px dashed var(--border-dashed);font-size:0.85em}
+.temp-profile-item.is-disabled .temp-profile-item-name,.temp-profile-item.is-disabled .temp-profile-item-summary{opacity:0.45}
+.temp-profile-item-name{font-weight:600;flex:0 0 auto;max-width:40%;overflow-wrap:anywhere}
+.temp-profile-item-summary{flex:1;color:var(--text-muted);overflow-wrap:anywhere}
+.temp-profile-edit{padding:2px 6px;font-size:0.8em;flex:0 0 auto;color:var(--edit-text);border-color:var(--edit-border);background:var(--edit-bg)}
+.temp-profile-edit:hover{background:var(--edit-bg-hover)}
+.temp-profile-delete{padding:2px 6px;font-size:0.8em;flex:0 0 auto;color:var(--danger-text);border-color:var(--danger-border);background:var(--danger-bg)}
+.temp-profile-delete:hover{background:var(--danger-bg-hover)}
+.temp-profile-diff-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.85em;margin-bottom:4px}
+.temp-profile-diff-row input[type=number]{width:5em}
+.temp-profile-hidden-hint{font-size:0.8em;color:var(--text-muted);margin-top:4px}
+
+/* Add/Edit Temperature Profile Plot modal (built in app.js, reusing .session-modal-*) */
+.temp-profile-modal-dialog{width:min(480px,100%)}
+.temp-profile-use-default-row{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-primary);margin-top:4px;cursor:pointer}
+.temp-profile-color-row{flex-direction:row;flex-wrap:wrap}
+.temp-profile-color-field{display:flex;flex-direction:column;gap:2px;font-size:10px;color:var(--text-muted);flex:1 1 90px;min-width:80px}
+.temp-profile-color-field input[type=color]{width:100%;height:26px;padding:1px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);cursor:pointer}
+.temp-profile-colormap-preview-row{display:flex;align-items:center;gap:6px;margin-top:8px}
+.temp-profile-colormap-preview-bar{flex:1 1 auto;height:16px;border-radius:3px;border:1px solid var(--border)}
+.temp-profile-colormap-preview-label{font-size:10px;color:var(--text-muted);min-width:2em;text-align:center}
+.temp-profile-channel-picker{margin-top:5px}
+.temp-profile-channel-list{height:auto}
+.temp-profile-order-header{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;margin-top:6px}
+.temp-profile-flip-btn,.temp-profile-sort-btn,.temp-profile-add-filtered-btn{padding:2px 8px;font-size:0.8em}
+.temp-profile-data-range-hint{margin-top:4px}
+.temp-profile-data-range-use{margin-left:4px;padding:0 6px;font-size:0.9em}
+.temp-profile-order-list{margin-top:4px;max-height:180px;overflow-y:auto;border:1px solid var(--border-dashed);border-radius:4px}
+.temp-profile-order-item{display:flex;align-items:center;gap:6px;padding:3px 6px;border-bottom:1px dashed var(--border-dashed);font-size:0.85em}
+.temp-profile-order-item:last-child{border-bottom:none}
+.temp-profile-order-item-name{flex:1;overflow-wrap:anywhere}
+.temp-profile-order-btn{padding:1px 6px;font-size:0.78em;flex:0 0 auto}
+.temp-profile-order-btn:disabled{opacity:0.35;cursor:default}
+
+/* Desktop-only drag handle between the main plot and the temp-profile block, positioned in
+   JS (positionTempProfileResizeHandle) at the pixel row where the two domains meet. */
+.temp-profile-resize-handle{position:absolute;left:0;right:0;height:9px;margin-top:-4px;cursor:row-resize;z-index:60;user-select:none;touch-action:none}
+.temp-profile-resize-handle:hover,.temp-profile-resize-handle.is-dragging{background:var(--bg-hover)}
+@media (max-width:980px){.temp-profile-resize-handle{display:none}}
+
+/* Same as .temp-profile-resize-handle above, between the main plot and Time Slip
+   (positionTimeSlipResizeHandle). */
+.time-slip-resize-handle{position:absolute;left:0;right:0;height:9px;margin-top:-4px;cursor:row-resize;z-index:60;user-select:none;touch-action:none}
+.time-slip-resize-handle:hover,.time-slip-resize-handle.is-dragging{background:var(--bg-hover)}
+@media (max-width:980px){.time-slip-resize-handle{display:none}}
+
+.data-filters-controls{padding-top:6px;border-top:1px dashed var(--border-dashed)}
+.file-upsampled-indicator{display:inline-flex;align-items:center;gap:4px;font-size:0.78em;color:var(--warning-text);background:var(--warning-bg);border:1px solid var(--warning-border);border-radius:3px;padding:1px 6px;white-space:nowrap;flex:0 0 auto}
+.data-filters-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.data-filter-add-btn{padding:2px 8px;font-size:0.82em}
+/* The master "Data Filters:" checkbox itself (and its label) stay full-opacity -- they're
+   the affordance for turning filtering back on -- everything filtering actually affects
+   dims to make "filters are off" obvious, without disabling interaction (still addable/
+   editable while off). */
+.data-filters-controls.is-filters-disabled #dataFiltersList,
+.data-filters-controls.is-filters-disabled #dataFilterForm,
+.data-filters-controls.is-filters-disabled .data-filter-add-btn{opacity:0.45}
+.data-filter-item{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px dashed var(--border-dashed);font-size:0.85em}
+.data-filter-item.is-disabled .data-filter-desc{opacity:0.45;text-decoration:line-through}
+.data-filter-desc{flex:1;overflow-wrap:anywhere}
+.data-filter-edit{padding:2px 6px;font-size:0.8em;flex:0 0 auto;color:var(--edit-text);border-color:var(--edit-border);background:var(--edit-bg)}
+.data-filter-edit:hover{background:var(--edit-bg-hover)}
+.data-filter-delete{padding:2px 6px;font-size:0.8em;flex:0 0 auto;color:var(--danger-text);border-color:var(--danger-border);background:var(--danger-bg)}
+.data-filter-delete:hover{background:var(--danger-bg-hover)}
+#dataFilterForm{border:1px solid var(--border-strong);border-radius:4px;padding:8px;background:var(--bg-page);margin-top:6px}
+.data-filter-field{margin-bottom:6px}
+.data-filter-field label{display:block;font-size:0.85em;margin-bottom:2px;color:var(--text-muted)}
+.data-filter-field select{width:100%}
+.data-filter-range-hint{font-size:0.82em;color:var(--text-muted);margin:-2px 0 8px}
+.data-filter-mode-toggle{display:flex;gap:14px;font-size:0.85em;margin:-2px 0 8px}
+.data-filter-mode-toggle label{display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.data-filter-range-field{display:flex;gap:10px}
+.data-filter-range-field label{flex:1}
+.data-filter-range-field input{width:100%}
+.data-filter-error{color:var(--danger-text);font-size:0.83em;margin-bottom:6px}
+.data-filter-btns{display:flex;gap:8px}
+.corner-detect-controls{padding-top:6px;border-top:1px dashed var(--border-dashed);display:flex;flex-direction:column;gap:6px}
+.corner-detect-controls input[type=number]{width:70px;margin-left:6px}
+.corner-track-info{font-size:12px;color:var(--text-muted);min-height:16px}
+.corner-header-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.corner-edit-toggle-btn{padding:3px 10px;font-size:0.82em}
+.corner-edit-toggle-btn.is-active{background:var(--accent-active-bg);border-color:var(--accent-active-border);color:var(--accent-active-text)}
+.corner-editor-panel{border:1px solid var(--border);border-radius:4px;padding:8px;background:var(--bg-subtle);display:flex;flex-direction:column;gap:8px}
+.corner-editor-status{font-size:12px;min-height:16px;color:var(--danger-text)}
+.corner-editor-list{display:flex;flex-direction:column;gap:4px;max-height:260px;overflow-y:auto}
+.corner-editor-row{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:0.82em;padding:5px 4px;border-bottom:1px dashed var(--border-dashed)}
+.corner-editor-row.is-selected{background:var(--bg-hover)}
+.corner-editor-row.is-combine-from{background:var(--warning-bg)}
+.corner-editor-combine-btn{padding:2px 6px;font-size:0.78em;flex:0 0 auto;white-space:nowrap}
+.corner-editor-combine-btn.is-picking{background:var(--warning-bg-strong);border-color:var(--warning-border);color:var(--warning-text)}
+.corner-editor-id{display:inline-flex;align-items:center;gap:1px;flex:0 0 auto;font-weight:600}
+.corner-editor-prefix{padding-right:1px}
+.corner-editor-type-select{font-size:0.85em;padding:0 1px;font-weight:400}
+.corner-editor-row-range{color:var(--text-muted);flex:1 1 auto;min-width:140px}
+.corner-editor-number-input{width:28px;font-size:0.85em;padding:1px 2px;text-align:center}
+.corner-editor-nickname-input{flex:1 1 100px;min-width:90px;font-size:0.85em;padding:1px 4px}
+.corner-editor-split{display:flex;align-items:center;gap:4px;flex:0 0 auto}
+.corner-editor-split input{width:56px;font-size:0.85em;padding:1px 4px}
+.corner-editor-split button{padding:1px 6px;font-size:0.82em}
+.corner-editor-hint{font-size:11px;color:var(--text-muted);font-style:italic}
+.corner-editor-merge-row{display:flex;align-items:center;flex-wrap:wrap;gap:6px;font-size:0.85em}
+.corner-editor-merge-row button{padding:3px 8px;font-size:0.85em}
+.corner-editor-footer-row{display:flex;justify-content:flex-end}
+.corner-editor-reset-btn{padding:3px 8px;font-size:0.82em;color:var(--danger-text);border-color:var(--danger-border);background:var(--danger-bg)}
+.corner-editor-reset-btn:hover{background:var(--danger-bg-hover)}
+.racing-line-controls{padding-top:6px;border-top:1px dashed var(--border-dashed);display:flex;flex-direction:column;gap:10px}
+.racing-line-controls button{width:100%}
+.racing-line-status{font-size:12px;color:var(--text-secondary);line-height:1.35;min-height:16px}
+.racing-line-weight-controls{display:flex;flex-direction:column;gap:6px;padding:6px;border:1px dashed var(--border);border-radius:4px;background:var(--bg-subtle)}
+.racing-line-weight-controls label{display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:8px;row-gap:4px;font-size:12px;color:var(--text-secondary)}
+.racing-line-weight-controls input[type=number]{grid-column:2 / 3;justify-self:end;width:70px;padding:2px 4px;font-size:12px;border:1px solid var(--border);border-radius:4px;color:var(--text-secondary);background:var(--bg-surface)}
+.vehicle-sim-controls{padding-top:6px;border-top:1px dashed var(--border-dashed);display:flex;flex-direction:column;gap:10px}
+.vehicle-sim-controls button{width:100%}
+.racing-line-weight-controls select{grid-column:2 / 3;justify-self:end;max-width:170px;font-size:12px;padding:2px 4px;border:1px solid var(--border);border-radius:4px;color:var(--text-secondary);background:var(--bg-surface)}
+.vehicle-sim-picker{display:flex;flex-direction:column;gap:6px;padding:6px;border:1px dashed var(--border);border-radius:4px;background:var(--bg-subtle)}
+.vehicle-sim-picker-field{display:flex;flex-direction:column;gap:2px}
+.vehicle-sim-picker-label{font-size:12px;color:var(--text-secondary)}
+.vehicle-sim-picker-row{display:flex;gap:4px;align-items:center}
+.vehicle-sim-picker-row select{flex:1;min-width:0;font-size:12px;padding:3px 4px;border:1px solid var(--border);border-radius:4px;color:var(--text-primary);background:var(--bg-surface)}
+.racing-line-controls .vehicle-sim-picker .vehicle-sim-mini-btn{width:auto;flex:0 0 auto;min-width:28px;padding:3px 7px;font-size:13px;line-height:1.2;border-radius:4px;cursor:pointer;border:1px solid var(--border-dashed);background:var(--bg-surface);color:var(--text-primary)}
+.vehicle-sim-mini-btn:hover:not(:disabled){background:var(--bg-hover)}
+.vehicle-sim-mini-btn:disabled{opacity:.45;cursor:default}
+
+/* Button-with-caret "details" pattern: the summary looks like a normal button, but
+   the action button and the caret are separate click targets. The caret toggles the
+   <details> open/closed like a native disclosure triangle; the button's own click
+   handler calls preventDefault() so activating it runs the action instead of toggling. */
+/* flex-shrink:0 matters here: .controls is a flex column meant to scroll (not squish)
+   when its content overflows, but overflow:hidden resets a flex item's automatic
+   min-height to 0, making it freely shrinkable -- without this it gets crushed to
+   near-zero height instead of the sidebar scrolling once e.g. the laps list grows tall. */
+.collapsible-action{border:1px solid var(--border);border-radius:4px;overflow:hidden;flex-shrink:0}
+.collapsible-action-summary{display:flex;align-items:stretch;list-style:none;cursor:pointer;background:var(--bg-surface-alt)}
+.collapsible-action-summary::-webkit-details-marker{display:none}
+.collapsible-action-summary::marker{content:''}
+.collapsible-action-btn{flex:1;width:auto;min-width:0;border:none;border-radius:0;background:transparent;text-align:left;padding:6px 10px}
+.collapsible-action-btn:hover{background:var(--bg-hover)}
+.collapsible-action-label{flex:1;padding:6px 10px;font-weight:600;color:var(--text-primary)}
+.collapsible-caret{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:30px;border-left:1px solid var(--border-strong);color:var(--text-muted)}
+.collapsible-caret:hover{background:var(--bg-hover)}
+.collapsible-caret::before{content:'▸';font-size:11px;transition:transform 0.15s}
+.collapsible-action[open] > .collapsible-action-summary .collapsible-caret::before{transform:rotate(90deg)}
+.collapsible-action-body{padding:10px;border-top:1px solid var(--border-strong);background:var(--bg-surface-alt-2);display:flex;flex-direction:column;gap:12px}
+.map-color-controls{display:flex;flex-direction:column;gap:6px}
+.map-color-controls select{width:100%}
+.map-align-controls{padding-top:6px;border-top:1px dashed var(--border-dashed)}
+.map-align-controls input{width:100%}
+.map-fit-info{margin-top:6px;font-size:12px;color:var(--text-muted);min-height:16px}
+.settings-io-hint{margin:0 0 8px;font-size:12px;color:var(--text-muted)}
+.settings-io-controls{display:flex;gap:8px;flex-wrap:wrap}
+.author-name-row{display:flex;margin-bottom:4px}
+.settings-text-input{width:100%;box-sizing:border-box;font-size:12px;padding:4px 6px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);color:var(--text-primary)}
+.settings-io-status{margin-top:6px;font-size:12px;color:var(--text-muted);min-height:16px}
+.settings-io-status.is-error{color:var(--danger-text)}
+.settings-divider{border:none;border-top:1px solid var(--border-dashed);margin:12px 0}
+.stored-files-list{margin-bottom:8px}
+.stored-file-row{display:flex;align-items:center;gap:6px;padding:3px 0;font-size:12px}
+.stored-file-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-primary)}
+.stored-file-remove-btn{flex-shrink:0;padding:1px 5px;font-size:11px;line-height:1.4;border-radius:3px;cursor:pointer;background:var(--bg-surface);border:1px solid var(--border-dashed);color:var(--danger-text)}
+.stored-file-remove-btn:hover{background:var(--danger-text);color:#fff;border-color:var(--danger-text)}
+.stored-files-actions{display:flex;gap:8px;flex-wrap:wrap}
+.storage-persist-row{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.storage-persist-row #requestPersistBtn{flex:0 0 auto}
+.storage-persist-row .settings-io-status{margin-top:2px}
+/* Sidebar footer: the version on the left, the light/dark switch on the right. */
+.controls-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px;padding-top:12px;border-top:1px solid var(--border-dashed)}
+.controls-version{font-size:12px;color:var(--text-muted)}
+/* The public build's "Upgrade to Premium" card (index.html's Upsell block). */
+.premium-upsell{margin-top:12px;padding:10px 12px;border:1px solid var(--accent-active-border);border-radius:6px;background:var(--accent-active-bg);color:var(--text-primary)}
+.premium-upsell-title{font-weight:600;color:var(--accent-active-text)}
+.premium-upsell-text{margin:4px 0 8px;font-size:13px;color:var(--text-secondary)}
+.premium-upsell-link{display:inline-block;padding:5px 10px;border-radius:4px;background:var(--accent-active-text);color:var(--bg-surface);font-size:13px;font-weight:600;text-decoration:none}
+.premium-upsell-link:hover{opacity:0.9}
+.plot{flex:1;min-width:0;max-width:100%;overflow-x:clip;background:var(--bg-surface);padding:12px;border-radius:6px;box-shadow:0 1px 4px var(--shadow-sm)}
+.plot{flex:1;min-width:0;max-width:100%;overflow-x:clip;background:var(--bg-surface);padding:12px;border-radius:6px;box-shadow:0 1px 4px var(--shadow-sm);display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,20%);grid-template-areas:"plot maps";column-gap:12px;align-items:stretch;transition:background-color 0.15s ease}
+.plot.no-map-column{grid-template-columns:minmax(0,1fr)}
+#plotDiv{height:640px;width:100%;max-width:100%}
+.maps-container{display:block;margin-top:0;width:100%;grid-area:maps;align-self:stretch}
+.map-panel{min-width:0;height:100%;min-height:160px}
+.plot-canvas-wrap{position:relative;grid-area:plot;min-width:0}
+#mapDiv{display:none}
+#leafletMapDiv{max-width:100%;height:100%;min-height:160px;display:block}
+#plotDiv .plot-container,
+#plotDiv .svg-container,
+#plotDiv .main-svg,
+#mapDiv .plot-container,
+#mapDiv .svg-container,
+#mapDiv .main-svg{max-width:100% !important}
+button{padding:6px 10px;border-radius:4px;border:1px solid var(--border);background:var(--bg-surface-alt);color:var(--text-primary)}
+button:hover{background:var(--bg-hover)}
+/* Generic form controls aren't covered by any of the classed rules above -- without this
+   every <select>/text/number input on the page keeps the browser's light-theme default
+   (white background, black text) regardless of the app's own theme. */
+select,
+input[type=text],
+input[type=number],
+input[type=search],
+textarea{
+	background:var(--bg-surface);
+	color:var(--text-primary);
+	border:1px solid var(--border);
+	border-radius:4px;
+	padding:4px 6px;
+}
+select:disabled,
+input:disabled{opacity:0.6}
+footer{padding:8px 16px;font-size:12px;color:var(--text-muted);max-width:100%;overflow-x:clip}
+.controls-close{display:none}
+.controls-backdrop{display:none}
+.hamburger-btn{
+	display:inline-flex;
+	flex-direction:column;
+	justify-content:center;
+	gap:4px;
+	width:42px;
+	height:36px;
+	padding:6px;
+	border-radius:8px;
+	background:var(--bg-surface-alt);
+	border:1px solid var(--border);
+}
+.hamburger-btn span{
+	width:100%;
+	height:2px;
+	background:var(--text-primary);
+	border-radius:2px;
+	display:block;
+}
+body.sidebar-collapsed .controls{display:none}
+
+/* Lap list styles */
+#lapsList strong{display:block;margin-bottom:6px}
+.laps-col{display:flex;flex-direction:column;gap:6px}
+.lap-item{display:flex;align-items:center;gap:8px;border-radius:4px;padding:1px 3px;margin:-1px -3px}
+.lap-item:hover{background:var(--bg-hover)}
+.lap-toggle{display:flex;align-items:center;gap:8px;flex:1;min-width:0;cursor:pointer}
+.lap-item input[type=checkbox]{width:16px;height:16px}
+.lap-color-input{width:22px;height:22px;padding:0;border:none;background:transparent;cursor:pointer;flex:0 0 auto}
+.lap-label{font-weight:500}
+.lap-warning{cursor:help;font-size:0.9em}
+.file-lap-group{margin-top:8px}
+.file-lap-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:0.82em;font-weight:600;color:var(--text-muted);margin-bottom:4px}
+.file-lap-heading-name{word-break:break-all}
+.file-lap-select-actions{display:flex;gap:4px;flex:0 0 auto}
+.lap-select-all-btn,.lap-select-none-btn{padding:1px 7px;font-size:0.82em;font-weight:400;line-height:1.4;border-radius:3px;cursor:pointer}
+
+/* Leaflet ships its own light-chrome control styling; these overrides keep the zoom
+   buttons, layer picker and attribution strip legible instead of a stark white box
+   sitting on a dark page. Tile imagery itself is untouched -- it's just photos. */
+.leaflet-bar,
+.leaflet-bar a,
+.leaflet-control-layers,
+.leaflet-touch .leaflet-bar a{
+	background:var(--bg-surface);
+	border-color:var(--border)!important;
+	color:var(--text-primary);
+}
+.leaflet-bar a:hover{background:var(--bg-hover)}
+/* Map-type (layers) button: an inline SVG instead of Leaflet's layers.png so the icon
+   can't go missing (bad relative path / cache) and is drawn in a colour that reads on
+   the current theme's control background. Same specificity as Leaflet's own retina rule,
+   and this sheet loads after it. */
+.leaflet-control-layers .leaflet-control-layers-toggle,
+.leaflet-retina .leaflet-control-layers .leaflet-control-layers-toggle{
+	background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpolygon points='12 3 2 8.5 12 14 22 8.5 12 3'/%3E%3Cpolyline points='2 12.5 12 18 22 12.5'/%3E%3Cpolyline points='2 16.5 12 22 22 16.5'/%3E%3C/svg%3E");
+	background-size:24px 24px;
+	background-position:center;
+	background-repeat:no-repeat;
+}
+:root[data-theme="dark"] .leaflet-control-layers .leaflet-control-layers-toggle,
+:root[data-theme="dark"] .leaflet-retina .leaflet-control-layers .leaflet-control-layers-toggle{
+	background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23eee' stroke-width='2' stroke-linejoin='round' stroke-linecap='round'%3E%3Cpolygon points='12 3 2 8.5 12 14 22 8.5 12 3'/%3E%3Cpolyline points='2 12.5 12 18 22 12.5'/%3E%3Cpolyline points='2 16.5 12 22 22 16.5'/%3E%3C/svg%3E");
+}
+.leaflet-control-attribution{
+	background:var(--panel-bg-translucent)!important;
+	color:var(--text-muted);
+}
+.leaflet-control-attribution a{color:var(--text-secondary)}
+
+/* Leaflet's own ".leaflet-bar a" rule (display:block, fixed width/height) has the same
+   (0,1,1) specificity as a single class -- "a.leaflet-map-fullscreen-btn" matches that
+   so this actually wins (style.css loads after leaflet.min.css) instead of silently
+   losing to it, which is what left the icon off-center before. */
+a.leaflet-map-fullscreen-btn{display:flex;align-items:center;justify-content:center;width:30px;height:30px;line-height:normal;cursor:pointer}
+.leaflet-map-fullscreen-btn svg{width:16px;height:16px;display:block}
+/* Lifted clear of the attribution strip, which can span nearly the map's full width at
+   the panel's default (fairly narrow) size. */
+.leaflet-bottom .leaflet-map-fullscreen-control{margin-bottom:40px}
+
+/* The real Fullscreen API (:fullscreen) takes the element out of the page entirely, so
+   it can't be clipped or offset by any ancestor's transform/overflow -- this just makes
+   sure it actually fills that screen instead of keeping whatever size it had inline. */
+#leafletMapDiv:fullscreen,
+#leafletMapDiv:-webkit-full-screen{width:100vw!important;height:100vh!important;background:var(--bg-page)}
+
+/* CSS-only fallback for contexts where the real API is unavailable or refuses the
+   request (e.g. an embedding iframe without allow="fullscreen"). */
+#leafletMapDiv.map-fullscreen-active:not(.map-fullscreen-native){position:fixed;inset:0;width:100vw!important;height:100vh!important;z-index:1400;border-radius:0}
+body.map-fullscreen-open{overflow:hidden}
+
+.map-fullscreen-fab{display:none;position:fixed;right:24px;bottom:24px;width:52px;height:52px;border-radius:50%;align-items:center;justify-content:center;background:var(--bg-surface);border:1.5px solid var(--accent-active-border);color:var(--accent-active-text);box-shadow:0 4px 14px rgba(0,0,0,.35);cursor:pointer;z-index:1450}
+.map-fullscreen-fab svg{width:24px;height:24px;display:block}
+.map-fullscreen-fab.is-visible{display:flex}
+.map-fullscreen-fab:hover{background:var(--accent-active-bg)}
+.map-fullscreen-fab.is-armed{background:var(--accent-active-bg);box-shadow:0 0 0 4px var(--accent-active-bg),0 4px 14px rgba(0,0,0,.35)}
+
+.map-fullscreen-note-card{overflow-y:auto;position:fixed;left:50%;bottom:92px;transform:translateX(-50%);width:min(360px,calc(100vw - 32px));display:flex;flex-direction:column;gap:8px;background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 28px rgba(0,0,0,.4);padding:10px;z-index:1450}
+.map-fullscreen-note-input{width:100%;box-sizing:border-box;font-size:13px;padding:6px 8px;border:1px solid var(--border);border-radius:4px;background:var(--bg-subtle);color:var(--text-primary);resize:vertical}
+.map-fullscreen-note-actions{display:flex;justify-content:flex-end;gap:8px}
+.map-fullscreen-note-cancel,.map-fullscreen-note-save{font-size:12px;padding:5px 12px;border-radius:5px;cursor:pointer}
+.map-fullscreen-note-cancel{background:var(--bg-surface);border:1px solid var(--border-dashed);color:var(--text-primary)}
+.map-fullscreen-note-save{background:var(--accent-active-bg);border:1px solid var(--accent-active-border);color:var(--accent-active-text);font-weight:600}
+.map-fullscreen-note-save:hover{filter:brightness(1.06)}
+.map-fullscreen-note-save:disabled{opacity:.6;cursor:default}
+
+@media (max-width: 980px){
+	.importer-editor-modal{padding:8px}
+	.importer-editor-dialog{max-height:min(90vh,900px);padding:10px}
+	.importer-editor-table{font-size:0.8em}
+	.importer-custom-standard-entry{grid-template-columns:1fr}
+	.hamburger-btn{flex:0 0 auto}
+	main{display:block;padding:4px}
+	.plot{padding-left:0px;padding-right:0px;overflow:hidden;display:flex;flex-direction:column}
+	#plotDiv{
+		height:33dvh;
+		min-height:200px;
+	}
+	.maps-container{order:-1;margin-top:0;margin-bottom:8px}
+	.map-panel{height:33dvh;min-height:200px}
+	body.controls-open{overflow:hidden}
+
+	.hamburger-btn{
+		display:inline-flex;
+		flex-direction:column;
+		justify-content:center;
+		gap:4px;
+		width:42px;
+		height:36px;
+		padding:6px;
+		border-radius:8px;
+		background:var(--bg-surface-alt);
+		border:1px solid var(--border);
+	}
+	.hamburger-btn span{
+		width:100%;
+		height:2px;
+		background:var(--text-primary);
+		border-radius:2px;
+		display:block;
+	}
+
+	.controls-backdrop{
+		position:fixed;
+		inset:0;
+		background:var(--overlay-bg);
+		z-index:2000;
+	}
+	body.controls-open .controls-backdrop{display:block}
+
+	.controls{
+		position:fixed;
+		inset:0 auto 0 0;
+		top:0;
+		left:0;
+		width:min(86dvw, 380px);
+		max-width:100dvw;
+		/* 100vh on mobile browsers is the height with the URL bar hidden, so the bottom of
+		   this drawer sat behind the browser chrome and couldn't be scrolled to (cutting off
+		   the User section and the version label). dvh tracks the actually visible height;
+		   vh stays as the fallback for browsers without dvh. */
+		height:100vh;
+		height:100dvh;
+		overflow:auto;
+		padding-bottom:max(12px, env(safe-area-inset-bottom));
+		margin:0;
+		border-radius:0;
+		z-index:2100;
+		transform:translateX(-100vw);
+		transition:transform 180ms ease;
+		box-shadow:8px 0 30px var(--shadow-xl);
+	}
+	body.controls-open .controls{transform:translateX(0)}
+	.controls-footer{margin-top:auto;padding-top:16px}
+
+	.controls-header{display:flex}
+	.controls-close{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;flex:0 0 auto}
+	.controls-close svg{display:block}
+}
+
+@media (max-width: 980px) and (orientation: landscape){
+	#plotDiv{
+		height:28dvh;
+		min-height:180px;
+	}
+	.map-panel{
+		height:28dvh;
+		min-height:160px;
+	}
+}
+
+@media (max-width: 700px){
+	.maps-container{grid-template-columns:1fr}
+}
+
+/* Desktop only: the mobile breakpoint above already makes .controls a fixed,
+   independently-scrolling drawer. On desktop it's a normal flex child that grows with
+   its content, so as more control sections get added the whole page grows past the
+   viewport and scrolls as one unit. Bounding body to the viewport height and letting
+   .controls scroll vertically-only internally keeps the plot/map area always in view
+   while the sidebar scrolls on its own; the main (plot/map) side is fixed to that same
+   bounded height with no scrolling of its own -- its content (#plotDiv's height,
+   map-panel heights) is already sized to fit, so overflow there is clipped rather than
+   scrolling, per the same "no scrolling on the main part" requirement as the sidebar's
+   "no side scrolling". */
+@media (min-width: 981px){
+	body{height:100vh;display:flex;flex-direction:column;overflow:hidden}
+	main{flex:1;min-height:0}
+	.controls{overflow-y:auto;overflow-x:hidden}
+	.plot{overflow:hidden}
+}
+
+/* Selection stats panel */
+/* z-index 1100: Leaflet's own CSS goes up to 1000 (its zoom/attribution controls), and since
+   the map sits in the same stacking context as this panel (neither has an intervening ancestor
+   that isolates them), anything at or below 1000 can end up painted -- and hit-tested, hence
+   "not moveable" too -- underneath the map's tiles/controls instead of above them. */
+.selection-stats-panel{position:absolute;z-index:1100;top:60px;right:16px;min-width:200px;max-width:320px;background:var(--panel-bg,#fff);border:1px solid var(--border-color,#ccc);border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.18);font-size:13px;user-select:none}
+[data-theme=dark] .selection-stats-panel{background:#1a222c;border-color:#3a4556}
+.selection-stats-header{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:var(--header-bg,#f0f2f5);border-radius:6px 6px 0 0;cursor:grab}
+[data-theme=dark] .selection-stats-header{background:#232d3b}
+.selection-stats-header:active{cursor:grabbing}
+.selection-stats-header span{font-weight:600;font-size:12px;color:var(--text-color,#333)}
+[data-theme=dark] .selection-stats-header span{color:#c8d6e8}
+.selection-stats-close{background:none;border:none;cursor:pointer;font-size:14px;line-height:1;padding:0 2px;color:var(--text-color,#555);opacity:.7}
+.selection-stats-close:hover{opacity:1}
+.selection-stats-controls{padding:6px 8px 0}
+.selection-stats-fit-type-label,
+.selection-stats-fit-slope-units-row,
+.selection-stats-fit-formula-row{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted,#555);margin-bottom:6px}
+.selection-stats-fit-type-label select,
+.selection-stats-fit-slope-units-row select,
+.selection-stats-fit-formula-row input{flex:1;min-width:0;font-size:12px;padding:2px 4px;border:1px solid var(--border-color,#ccc);border-radius:4px;background:var(--panel-bg,#fff);color:var(--text-color,#222)}
+[data-theme=dark] .selection-stats-fit-type-label,
+[data-theme=dark] .selection-stats-fit-slope-units-row,
+[data-theme=dark] .selection-stats-fit-formula-row{color:#a8b8cc}
+[data-theme=dark] .selection-stats-fit-type-label select,
+[data-theme=dark] .selection-stats-fit-slope-units-row select,
+[data-theme=dark] .selection-stats-fit-formula-row input{background:#0f1520;border-color:#3a4556;color:#dde6f2}
+.selection-stats-fit-equation{font-size:11px;font-family:ui-monospace,"SF Mono",Consolas,monospace;color:var(--text-muted,#555);margin:-3px 0 6px;word-break:break-word}
+[data-theme=dark] .selection-stats-fit-equation{color:#a8b8cc}
+.selection-stats-fit-formula-hint{font-size:11px;color:var(--text-muted,#777);margin:-3px 0 6px;line-height:1.4}
+.selection-stats-fit-formula-hint code{font-family:ui-monospace,"SF Mono",Consolas,monospace;background:var(--bg-surface-alt,rgba(0,0,0,.06));border-radius:3px;padding:0 3px}
+[data-theme=dark] .selection-stats-fit-formula-hint{color:#8393a8}
+[data-theme=dark] .selection-stats-fit-formula-hint code{background:rgba(255,255,255,.08)}
+.selection-stats-fit-formula-error{margin:-3px 0 6px;font-size:11px;color:#b00020}
+[data-theme=dark] .selection-stats-fit-formula-error{color:#ff8c8c}
+.selection-stats-fft-toggle-label{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted,#555);margin-bottom:6px}
+[data-theme=dark] .selection-stats-fft-toggle-label{color:#a8b8cc}
+.selection-stats-fft-hint{font-size:11px;color:var(--text-muted,#777);margin:-3px 0 6px;line-height:1.3}
+[data-theme=dark] .selection-stats-fft-hint{color:#8393a8}
+.selection-stats-body{padding:6px 8px 8px}
+.selection-stats-group{margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--border-color,#e0e0e0)}
+.selection-stats-group:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.selection-stats-group-name{font-weight:600;margin-bottom:2px;color:var(--text-color,#222)}
+[data-theme=dark] .selection-stats-group-name{color:#dde6f2}
+.selection-stats-group-line{color:var(--text-muted,#555)}
+[data-theme=dark] .selection-stats-group-line{color:#a8b8cc}
+
+/* FFT panel -- a small floating, draggable Plotly chart (same pattern as the selection
+   stats panel) so it doesn't require reworking the main plot/maps grid layout. */
+.fft-panel{position:absolute;z-index:1100;top:340px;right:16px;width:360px;background:var(--panel-bg,#fff);border:1px solid var(--border-color,#ccc);border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.18);font-size:13px;user-select:none}
+[data-theme=dark] .fft-panel{background:#1a222c;border-color:#3a4556}
+.fft-plot-div{width:100%;height:220px;padding:4px}
+.fft-clear-forced-btn{background:none;border:1px solid var(--border-color,#ccc);border-radius:4px;cursor:pointer;font-size:11px;line-height:1;padding:3px 6px;color:var(--text-color,#555);margin-left:auto}
+.fft-clear-forced-btn:hover{background:rgba(99,143,232,.15)}
+[data-theme=dark] .fft-clear-forced-btn{border-color:#3a4556;color:#c8d6e8}
+
+
+/* Pick Uploaded Data button and modal */
+/* The data-source buttons at the top of the sidebar: Add New Data Files, Pick Uploaded
+   Data and (when available) Import from Google Drive, side by side at equal width. */
+.data-source-row{display:flex;flex-wrap:wrap;gap:8px}
+.data-source-btn{flex:1 1 0;min-width:140px;padding:8px 10px;font-size:13px;font-weight:600;border-radius:4px;cursor:pointer;background:var(--bg-surface-alt);border:1px solid var(--border);color:var(--text-primary)}
+.data-source-btn:hover{background:var(--bg-hover)}
+/* Progress under a backup action (Download All Data, Backup All Data to Drive). */
+.backup-progress{margin-top:6px;display:flex;flex-direction:column;gap:4px}
+.backup-progress progress{width:100%;height:8px;accent-color:var(--accent-active-text)}
+.backup-progress-text{font-size:12px;color:var(--text-secondary)}
+.pick-uploaded-modal{position:fixed;inset:0;z-index:1600;display:flex;align-items:center;justify-content:center;padding:18px}
+.pick-uploaded-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.45)}
+.pick-uploaded-dialog{position:relative;z-index:1;width:min(640px,100%);max-height:min(80vh,680px);display:flex;flex-direction:column;background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 16px 42px var(--shadow-xl);overflow:hidden}
+.pick-uploaded-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--bg-surface)}
+.pick-uploaded-title{font-weight:600;font-size:14px;color:var(--text-primary)}
+.pick-uploaded-close{background:none;border:none;cursor:pointer;font-size:18px;line-height:1;color:var(--text-secondary);padding:0 4px}
+.pick-uploaded-close:hover{color:var(--text-primary)}
+.pick-uploaded-tabs{display:flex;gap:2px;padding:6px 14px 0;border-bottom:1px solid var(--border)}
+.pick-uploaded-tab{padding:5px 12px;font-size:12px;border:none;border-bottom:2px solid transparent;background:none;cursor:pointer;color:var(--text-secondary)}
+.pick-uploaded-tab:hover{color:var(--text-primary)}
+.pick-uploaded-tab.is-active{color:var(--text-primary);border-bottom-color:var(--accent-active-border);font-weight:600}
+.pick-uploaded-controls{display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.pick-uploaded-sort-label{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-secondary);white-space:nowrap}
+.pick-uploaded-sort-select{font-size:12px;padding:2px 4px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);color:var(--text-primary)}
+.pick-uploaded-search{flex:1;min-width:120px;font-size:12px;padding:3px 7px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);color:var(--text-primary)}
+.pick-uploaded-list{flex:1;overflow-y:auto;padding:6px 0}
+.pick-uploaded-empty{padding:16px 14px;font-size:12px;color:var(--text-secondary);text-align:center}
+.pick-uploaded-item{display:grid;grid-template-columns:1fr auto;align-items:start;gap:6px;padding:6px 14px;border-bottom:1px solid var(--border)}
+.pick-uploaded-item:last-child{border-bottom:none}
+.pick-uploaded-item-meta{min-width:0}
+.pick-uploaded-item-name{font-size:13px;font-weight:500;color:var(--text-primary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pick-uploaded-item-tags{font-size:11px;color:var(--text-secondary);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pick-uploaded-item-actions{display:flex;gap:4px;flex-shrink:0;align-items:center}
+.pick-uploaded-item-load-btn{padding:2px 8px;font-size:11px;border-radius:3px;cursor:pointer;background:var(--bg-surface);border:1px solid var(--border-dashed);color:var(--text-primary)}
+.pick-uploaded-item-load-btn:hover{background:var(--bg-hover)}
+
+/* ── Sessions: file row actions, session panel, add-to-session modal ───────── */
+/* All colours come from the existing custom properties, so light/dark follow the
+   app theme with no extra rules. */
+
+.file-session-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px}
+/* Always on its own line inside a file row. Left to share a line with the file name (as it
+   did next to a synthetic row's Remove button), it squeezed the name into a tall, skinny
+   column that wrapped every word. */
+.file-item > .file-session-row{flex:1 1 100%}
+.file-add-to-session-btn{flex-shrink:0;padding:1px 6px;font-size:11px;line-height:1.4;border-radius:3px;cursor:pointer;background:var(--bg-surface);border:1px solid var(--border-dashed);color:var(--text-primary)}
+.file-add-to-session-btn:hover{background:var(--bg-hover)}
+.file-session-badges{display:flex;gap:4px;flex-wrap:wrap;min-width:0}
+.file-session-badge{padding:1px 6px;font-size:10px;line-height:1.5;border-radius:10px;background:var(--accent-active-bg);border:1px solid var(--accent-active-border);color:var(--accent-active-text);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.sessions-panel-body{display:flex;flex-direction:column;gap:10px;font-size:12px}
+.sessions-toolbar{display:flex;gap:6px;align-items:center}
+.sessions-select{flex:1;min-width:0;font-size:12px;padding:3px 5px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);color:var(--text-primary)}
+.sessions-new-btn{flex-shrink:0;padding:2px 7px;font-size:11px;border-radius:3px;cursor:pointer;background:var(--bg-surface);border:1px solid var(--border-dashed);color:var(--text-primary)}
+.sessions-new-btn:hover{background:var(--bg-hover)}
+
+.session-detail{display:flex;flex-direction:column;gap:9px}
+.session-field-row{display:flex;align-items:center;gap:6px}
+.session-field-label{flex:0 0 58px;font-size:11px;color:var(--text-muted)}
+.session-field-input{flex:1;min-width:0;font-size:12px;padding:2px 5px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);color:var(--text-primary)}
+.session-detail-meta{font-size:11px;color:var(--text-muted)}
+.session-section{border-top:1px solid var(--border-dashed);padding-top:7px;display:flex;flex-direction:column;gap:4px}
+.session-section-header{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.session-section-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-secondary)}
+.session-section-add-btn{flex-shrink:0;padding:1px 6px;font-size:10px;border-radius:3px;cursor:pointer;background:var(--bg-surface);border:1px solid var(--border-dashed);color:var(--text-primary)}
+.session-section-add-btn:hover{background:var(--bg-hover)}
+
+.session-event-details{display:flex;flex-direction:column;gap:6px;padding-bottom:8px;border-bottom:1px solid var(--border-dashed)}
+.session-map-center{display:flex;flex-direction:column;gap:4px}
+.session-map-center-actions{display:flex;gap:6px;flex-wrap:wrap;padding-left:64px}
+.session-map-center-btn{padding:1px 7px;font-size:10px;border-radius:3px;cursor:pointer;background:var(--bg-surface);border:1px solid var(--border-dashed);color:var(--text-primary)}
+.session-map-center-btn:hover{background:var(--bg-hover)}
+.session-map-center-status{font-size:11px;color:var(--text-muted);padding-left:64px}
+.session-map-center-status:empty{display:none}
+.session-map-center-status.is-error{color:var(--danger-text)}
+.location-suggest-item{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.location-suggest-name{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.location-suggest-coords{flex-shrink:0;font-size:10px;color:var(--text-muted);font-variant-numeric:tabular-nums}
+.location-suggest-item.is-new .location-suggest-name{color:var(--text-secondary);font-style:italic}
+/* Above the session modal, which the suggestions can open from. */
+.location-suggest-panel{z-index:5000}
+
+.sessions-pin-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.sessions-event-filter-row{margin-bottom:6px}
+.sessions-event-filter-row .session-field-label{flex-shrink:0}
+.sessions-pin-btn{padding:2px 8px;font-size:11px;border-radius:12px;cursor:pointer;background:var(--bg-surface);border:1px solid var(--border-dashed);color:var(--text-primary)}
+.sessions-pin-btn:hover{background:var(--bg-hover)}
+.sessions-pin-btn.is-armed{background:var(--accent-active-bg);border-color:var(--accent-active-border);color:var(--accent-active-text);font-weight:600}
+.sessions-pin-hint{font-size:11px;color:var(--text-muted);font-style:italic}
+
+.session-note-view-location{font-size:11px;color:var(--text-muted)}
+.session-empty{font-size:11px;color:var(--text-muted)}
+
+.session-kpi-list{display:flex;flex-direction:column;gap:3px}
+.session-kpi-row{display:flex;align-items:center;gap:6px}
+.session-kpi-type{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-primary)}
+.session-kpi-value{flex:0 0 78px;font-size:12px;padding:1px 4px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);color:var(--text-primary);text-align:right}
+.session-kpi-remove,.session-linked-remove,.session-note-remove{flex-shrink:0;padding:0 5px;font-size:11px;line-height:1.6;border-radius:3px;cursor:pointer;background:var(--bg-surface);border:1px solid var(--border-dashed);color:var(--danger-text)}
+.session-linked-edit,.session-note-edit{flex-shrink:0;padding:0 5px;font-size:11px;line-height:1.6;border-radius:3px;cursor:pointer;background:var(--bg-surface);border:1px solid var(--border-dashed);color:var(--text-secondary)}
+.session-linked-edit:hover,.session-note-edit:hover{background:var(--bg-hover);color:var(--text-primary)}
+.session-linked-override-input{flex:0 0 62px;font-size:11px;padding:1px 4px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);color:var(--text-primary);text-align:right}
+.session-kpi-remove:hover,.session-linked-remove:hover,.session-note-remove:hover{background:var(--danger-text);color:#fff;border-color:var(--danger-text)}
+.session-kpi-add{display:flex;gap:5px;margin-top:3px}
+.session-kpi-new-type{flex:1;min-width:0;font-size:11px;padding:2px 5px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);color:var(--text-primary)}
+.session-kpi-new-value{flex:0 0 66px;font-size:11px;padding:2px 5px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);color:var(--text-primary)}
+.session-kpi-add-btn{flex-shrink:0;padding:2px 7px;font-size:11px;border-radius:3px;cursor:pointer;background:var(--bg-surface);border:1px solid var(--border-dashed);color:var(--text-primary)}
+.session-kpi-add-btn:hover{background:var(--bg-hover)}
+
+.session-linked-row{display:flex;align-items:center;gap:6px}
+.session-linked-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-primary)}
+
+.session-note{border:1px solid var(--border-dashed);border-radius:4px;padding:5px 6px;background:var(--bg-subtle);display:flex;flex-direction:column;gap:3px}
+.session-note-header{display:flex;align-items:center;gap:6px}
+.session-note-type{padding:0 5px;font-size:10px;line-height:1.6;border-radius:8px;background:var(--accent-active-bg);border:1px solid var(--accent-active-border);color:var(--accent-active-text);text-transform:uppercase}
+.session-note-time{flex:1;font-size:10px;color:var(--text-muted)}
+.session-note-content{font-size:12px;color:var(--text-primary);white-space:pre-wrap;overflow-wrap:anywhere}
+.session-note-tags,.session-note-media,.session-note-shared{font-size:10px;color:var(--text-muted)}
+.session-note-editing{border-color:var(--accent-active-border)}
+.session-note-cancel-btn{padding:2px 7px;font-size:11px;border-radius:3px;cursor:pointer;background:var(--bg-surface);border:1px solid var(--border-dashed);color:var(--text-primary)}
+.session-note-cancel-btn:hover{background:var(--bg-hover)}
+
+.session-note-composer{display:flex;flex-direction:column;gap:4px;margin-top:5px;padding-top:6px;border-top:1px dashed var(--border-dashed)}
+.session-note-composer-row{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+.session-note-type-select,.session-note-author-select{flex:1;min-width:0;font-size:11px;padding:2px 4px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);color:var(--text-primary)}
+.session-note-input{width:100%;box-sizing:border-box;font-size:12px;padding:4px 5px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);color:var(--text-primary);resize:vertical;font-family:inherit}
+.session-note-tags-input{flex:1;min-width:0;font-size:11px;padding:2px 5px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);color:var(--text-primary)}
+/* Take Photo / Attach Photo are a secondary, muted utility action -- deliberately
+   smaller and quieter than Add Note below, so the primary action reads at a glance. */
+.session-note-photo-actions{opacity:.85}
+.session-note-photo-btn,.session-note-attach-btn{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;padding:0;border-radius:3px;cursor:pointer;background:transparent;border:1px dashed var(--border-dashed);color:var(--text-muted)}
+.icon-btn-glyph{display:inline-flex;width:14px;height:14px}
+.icon-btn-glyph svg{width:14px;height:14px;display:block}
+.session-note-photo-btn:hover,.session-note-attach-btn:hover{background:var(--bg-hover);color:var(--text-primary);border-style:solid}
+.session-note-media-status{font-size:10px;color:var(--text-muted)}
+.session-note-media-thumbs{display:flex;flex-wrap:wrap;gap:6px}
+.session-note-media-thumb{width:48px;height:48px;object-fit:cover;border-radius:4px;border:1px solid var(--border-dashed);background:var(--bg-subtle);cursor:pointer}
+.session-note-media-thumb:hover{border-color:var(--accent-active-border)}
+.session-note-save-row{margin-top:2px}
+/* Add Note is the call to action for this composer: filled, bigger, with an icon, so
+   it's unmistakably the "do the thing" button next to the quieter photo actions above. */
+.session-note-save-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;font-size:13px;font-weight:600;border-radius:5px;cursor:pointer;background:var(--accent-active-bg);border:1px solid var(--accent-active-border);color:var(--accent-active-text)}
+.session-note-save-icon{display:inline-flex;width:14px;height:14px}
+.session-note-save-icon svg{width:14px;height:14px;display:block}
+.session-note-save-btn:hover{filter:brightness(1.06)}
+.session-note-location-chip{display:flex;align-items:center;gap:6px;padding:3px 7px;border-radius:4px;background:var(--accent-active-bg);border:1px solid var(--accent-active-border);color:var(--accent-active-text);font-size:11px}
+.session-note-location-text{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.session-note-location-clear{flex-shrink:0;background:none;border:none;cursor:pointer;color:inherit;font-size:12px;line-height:1;padding:0 2px;opacity:.8}
+.session-note-location-clear:hover{opacity:1}
+.session-detail-actions{border-top:1px solid var(--border-dashed);padding-top:7px}
+.session-delete-btn{padding:2px 8px;font-size:11px;border-radius:3px;cursor:pointer;background:var(--bg-surface);border:1px solid var(--border-dashed);color:var(--danger-text)}
+.session-delete-btn:hover{background:var(--danger-text);color:#fff;border-color:var(--danger-text)}
+
+.session-modal{position:fixed;inset:0;z-index:2200;display:flex;align-items:center;justify-content:center;padding:18px}
+.session-modal[hidden]{display:none}
+.session-modal-backdrop{position:absolute;inset:0;background:var(--overlay-bg)}
+.session-modal-dialog{position:relative;z-index:1;width:min(420px,100%);max-height:min(86vh,720px);overflow-y:auto;display:flex;flex-direction:column;gap:5px;background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 16px 42px var(--shadow-xl);padding:12px 14px}
+/* The dialog is a flex column with a max-height and overflow-y:auto. Without this, flexbox
+   squeezes every direct child (textareas, charts, fields) to fit that max-height instead of
+   letting the dialog scroll, e.g. crushing a multi-line textarea to a single line. */
+.session-modal-dialog > *{flex-shrink:0}
+.session-modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.session-modal-title{margin:0;font-size:14px;font-weight:600;color:var(--text-primary)}
+.session-modal-close{background:none;border:none;cursor:pointer;font-size:17px;line-height:1;color:var(--text-secondary);padding:0 3px}
+.session-modal-close:hover{color:var(--text-primary)}
+.session-modal-files{background:var(--bg-subtle);border:1px solid var(--border-dashed);border-radius:4px;padding:5px 7px;margin-bottom:4px}
+.session-modal-files-label{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted);margin-bottom:2px}
+.session-modal-file-name{font-size:12px;color:var(--text-primary);overflow-wrap:anywhere}
+.session-modal-label{font-size:11px;color:var(--text-muted);margin-top:4px}
+.session-modal-select,.session-modal-input,.session-modal-textarea{width:100%;box-sizing:border-box;font-size:12px;padding:4px 6px;border:1px solid var(--border);border-radius:3px;background:var(--bg-surface);color:var(--text-primary);font-family:inherit}
+.session-modal-textarea{resize:vertical}
+.session-modal-new-fields{display:flex;flex-direction:column;gap:5px;margin-top:5px}
+.session-modal-new-fields[hidden]{display:none}
+.session-modal-field{display:flex;align-items:center;gap:8px}
+.session-modal-field-label{flex:0 0 40%;font-size:11px;color:var(--text-muted)}
+.session-modal-field>.session-modal-input,.session-modal-field>.session-modal-select{flex:1;min-width:0}
+.session-modal-field-hint{margin-left:calc(40% + 8px)}
+.session-modal-field-hint[hidden]{display:none}
+.session-modal-power-source-row{display:flex;align-items:center;gap:12px;font-size:11px;color:var(--text-primary);margin-top:8px}
+.session-modal-power-source-row[hidden]{display:none}
+.session-modal-power-source-row label{display:flex;align-items:center;gap:4px;cursor:pointer}
+.session-modal-power-source-row .session-modal-field-label{flex:0 0 40%}
+.session-modal-status{font-size:11px;color:var(--text-muted);min-height:14px;margin-top:5px}
+.session-modal-status.is-error{color:var(--danger-text)}
+.session-modal-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:8px}
+.session-modal-save,.session-modal-cancel,.session-modal-engn-btn{padding:4px 11px;font-size:12px;border-radius:3px;cursor:pointer;border:1px solid var(--border-dashed);background:var(--bg-surface);color:var(--text-primary)}
+.session-modal-save{background:var(--accent-active-bg);border-color:var(--accent-active-border);color:var(--accent-active-text);font-weight:600}
+.session-modal-save:hover{background:var(--bg-hover)}
+.session-modal-cancel:hover,.session-modal-engn-btn:hover{background:var(--bg-hover)}
+.session-modal-save:disabled{opacity:.6;cursor:default}
+
+.session-capture-overlay{position:fixed;inset:0;z-index:2300;display:flex;align-items:center;justify-content:center;background:var(--overlay-bg);padding:18px}
+.session-capture-dialog{display:flex;flex-direction:column;gap:8px;background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 16px 42px var(--shadow-xl);padding:12px}
+.session-capture-video{width:min(460px,80vw);max-height:60vh;background:#000;border-radius:4px}
+.session-capture-actions{display:flex;justify-content:center;align-items:center;gap:18px}
+.session-capture-btn,.session-capture-cancel,.session-capture-switch{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border-radius:50%;cursor:pointer;border:1px solid var(--border);background:var(--bg-surface);color:var(--text-primary)}
+.session-capture-switch[hidden]{display:none}
+.session-capture-btn:hover,.session-capture-cancel:hover,.session-capture-switch:hover{background:var(--bg-hover)}
+.session-capture-btn{width:56px;height:56px;background:var(--accent-active-bg);border-color:var(--accent-active-border);color:var(--accent-active-text)}
+.session-capture-btn .icon-btn-glyph{width:34px;height:34px}
+.session-capture-btn .icon-btn-glyph svg{width:34px;height:34px}
+.session-capture-cancel .icon-btn-glyph,.session-capture-switch .icon-btn-glyph{width:22px;height:22px}
+.session-capture-cancel .icon-btn-glyph svg,.session-capture-switch .icon-btn-glyph svg{width:22px;height:22px}
+
+/* ── Note viewer overlay (reached from a map marker click) ─────────────────── */
+.session-note-view-overlay{position:fixed;inset:0;z-index:2250;display:flex;align-items:center;justify-content:center;background:var(--overlay-bg);padding:18px}
+.session-note-view-dialog{width:min(360px,100%);max-height:min(80vh,600px);overflow-y:auto;display:flex;flex-direction:column;gap:6px;background:var(--bg-surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 16px 42px var(--shadow-xl);padding:12px 14px}
+.session-note-view-header{display:flex;align-items:center;gap:6px}
+.session-note-view-close{margin-left:auto;background:none;border:none;cursor:pointer;font-size:16px;line-height:1;color:var(--text-secondary);padding:0 3px}
+.session-note-view-close:hover{color:var(--text-primary)}
+.session-note-view-content{font-size:13px;color:var(--text-primary);white-space:pre-wrap;overflow-wrap:anywhere}
+.session-note-view-actions{border-top:1px solid var(--border-dashed);padding-top:7px;margin-top:3px}
+
+/* ── Add Vehicle / Add Rider modals: extra fields beyond the base .session-modal-* set */
+.session-modal-subheading{font-size:11px;font-weight:600;color:var(--text-secondary);margin-top:8px}
+.session-modal-hint{font-size:10px;color:var(--text-muted);line-height:1.4}
+.session-modal-radio-row{display:flex;gap:12px;font-size:11px;color:var(--text-primary);margin-top:4px}
+.session-modal-radio-row label{display:flex;align-items:center;gap:4px;cursor:pointer}
+.session-modal-radio-row-actions{margin-left:auto;display:flex;gap:6px}
+.session-modal-engine-brake-hint{display:flex;align-items:center;gap:8px}
+.session-modal-engine-brake-hint[hidden]{display:none}
+/* flex-shrink:0 because .session-modal-dialog is itself a flex column with a
+   max-height + overflow-y:auto -- without this, flexbox's default shrink behavior
+   squeezes this (like every other direct child) to fit that max-height instead of
+   letting the modal scroll, clipping the chart to a fraction of its real height. */
+.vehicle-power-chart{margin-top:4px;height:280px;flex-shrink:0;border:1px solid var(--border-dashed);border-radius:4px;background:var(--bg-subtle);overflow:hidden}
+.rider-skill-chart{margin-top:4px;height:300px;flex-shrink:0;border:1px solid var(--border-dashed);border-radius:4px;background:var(--bg-subtle);overflow:hidden}
+.rider-skill-chart[hidden]{display:none}
+.vehicle-gg-chart{margin-top:4px;height:360px;flex-shrink:0;border:1px solid var(--border-dashed);border-radius:4px;background:var(--bg-subtle);overflow:hidden}
+.vehicle-gg-chart[hidden]{display:none}
+.vehicle-speed-power-chart{margin-top:4px;height:280px;flex-shrink:0;border:1px solid var(--border-dashed);border-radius:4px;background:var(--bg-subtle);overflow:hidden}
+.vehicle-speed-power-chart[hidden]{display:none}
+
+/* ── Leaflet note marker (a divIcon, so this styles its raw HTML content) ─────
+   Monochrome badge using the same accent as everything else in the sessions UI
+   (badges, active buttons, the note-type pill) rather than a colour emoji, so it
+   reads as part of this app rather than a generic map pin, and follows the theme. */
+.note-map-marker-icon{width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--bg-surface);border:1.5px solid var(--accent-active-border);color:var(--accent-active-text);box-shadow:0 1px 3px rgba(0,0,0,.35);cursor:pointer}
+.note-map-marker-icon svg{width:13px;height:13px;display:block}
+
+/* ── Toggle Hover Data: hides the tooltip TEXT only -- hovermode stays 'x' always so the
+   map/track marker keeps following the mouse regardless (see setHoverTooltipVisible). */
+.hover-tooltip-hidden .hoverlayer{display:none!important}
+
+/* ── Leaflet note-marker tooltip: wrap long note text instead of Leaflet's default
+   single-line, unbounded-width tooltip. ────────────────────────────────────────────── */
+/* max-width is set inline in JS (see the marker's 'tooltipopen' handler) as a real pixel
+   value computed from the map's own current width -- Leaflet's tooltip pane has nothing
+   for a CSS percentage width to resolve against. min-width lets a short note settle to
+   its own content width instead of always stretching out to the computed max. */
+.note-map-tooltip{white-space:normal;min-width:120px;word-wrap:break-word;text-align:center}
+
+/* ── Note-pin marker hover highlight, on the graph ───────────────────────────────────
+   Only annotations built with captureevents:true (see notePinAnnotationsForOverlay in
+   app.js -- the ONLY place this app sets captureevents) actually receive pointer events
+   at all: Plotly gives every annotation's text an invisible hit-rect, but only a
+   captureevents:true one sets pointer-events:all to make that rect respond to the
+   pointer, so this rule can never accidentally fire for a corner label or any other
+   annotation. Targets Plotly's own internal class names (verified against this app's
+   pinned custom Plotly build), not something -- there's no public API for annotation
+   hover styling. */
+#plotDiv g.annotation .cursor-pointer[style*="pointer-events: all"]{cursor:pointer}
+#plotDiv g.annotation .cursor-pointer[style*="pointer-events: all"]:hover .annotation-text{
+  filter:brightness(1.5) drop-shadow(0 0 2px rgba(0,0,0,.35));
+}
+
+/* ── Note-pin marker hover highlight, on the map ─────────────────────────────────────
+   Plain CSS :hover on the marker's own divIcon badge. */
+.note-map-marker-icon:hover{background:var(--accent-active-bg);border-color:var(--accent-active-text);transform:scale(1.15)}
+
+/* Simulate panel: vehicle class radios + the (?) explainer, save fields, extra buttons. */
+.vehicle-sim-class-row{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px;margin-bottom:8px;font-size:13px}
+.vehicle-sim-class-row label{display:inline-flex;align-items:center;gap:4px}
+.racing-line-controls .vehicle-sim-class-row .vehicle-sim-mini-btn{width:26px;height:26px;padding:0;margin-left:auto;border-radius:50%;font-weight:700;font-size:13px;cursor:pointer;border:1px solid var(--border-dashed);background:var(--bg-surface);color:var(--text-primary)}
+.vehicle-sim-save-fields{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.vehicle-sim-save-fields label{display:flex;flex-direction:column;gap:2px;font-size:12px;color:var(--text-secondary)}
+.vehicle-sim-save-fields input,.vehicle-sim-save-fields textarea{width:100%;box-sizing:border-box;font-size:13px}
+.racing-line-controls .vehicle-sim-rename-btn{width:auto;align-self:flex-start;margin-top:8px;padding:5px 10px;font-size:12px;border-radius:4px;cursor:pointer;border:1px solid var(--border-dashed);background:var(--bg-surface);color:var(--text-primary)}
+.racing-line-controls .vehicle-sim-save-fields .vehicle-sim-rename-btn{margin-top:0}
+.vehicle-sim-rename-btn:disabled{opacity:.45;cursor:default}
+.sim-info-dialog{max-width:min(560px,94vw)}
+.sim-info-body{font-size:13px;line-height:1.45;overflow-y:auto}
+.sim-info-body h4{margin:12px 0 4px;font-size:13px}
+.sim-info-body ul{margin:0;padding-left:18px}
+.sim-info-body li{margin:2px 0}
+.sim-info-off{opacity:.6}
+
+/* "Show notes" radios appended to the map's layer picker (see
+   appendMapNotesFilterToLayersControl). Their labels pick up Leaflet's own
+   .leaflet-control-layers label styling, so they match the base-layer rows. */
+.map-notes-filter-title{font-weight:600;margin-bottom:2px}
+
+/* "Whole Session" plots every lap regardless of the lap checkboxes -- dim them as a reminder. */
+#lapsList.is-whole-session .lap-item{opacity:.45}
