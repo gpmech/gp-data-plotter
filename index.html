@@ -17,10 +17,10 @@
       } catch (e) {}
     })();
   </script>
-  <link rel="stylesheet" href="leaflet.css" />
+  <link rel="stylesheet" href="leaflet.css?v=2026-10-01c" />
   <!-- Loads after Leaflet's CSS so our theme overrides (e.g. dark-mode control colors)
        win the cascade on equal specificity, regardless of shorthand/longhand quirks. -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2026-10-01c">
 
   <!-- Loaded live from Google's CDN, unlike every other library here (see lib/ above) --
        Google's OAuth/Picker SDKs can't be self-hosted (they talk to Google's live login
@@ -29,6 +29,14 @@
        see scripts/build-production.js. -->
   <script async defer src="https://accounts.google.com/gsi/client"></script>
   <script async defer src="https://apis.google.com/js/api.js"></script>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#24292f" />
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="GP Data" />
 </head>
 <body>
   <header>
@@ -541,7 +549,8 @@
     <small>Supports CSVs with headers. Detects `Time`/`Timestamp` and `Distance` columns. Computes distance if `lat`/`lon` present.</small>
   </footer> -->
 
-  <script src="gpbikes-plotter.bundle.min.js"></script>
+  <script src="gpbikes-plotter.bundle.min.js?v=2026-10-01c"></script>
 
+  <script src="pwa.js?v=2026-10-01c"></script>
 </body>
 </html>
