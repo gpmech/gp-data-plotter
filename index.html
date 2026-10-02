@@ -17,10 +17,10 @@
       } catch (e) {}
     })();
   </script>
-  <link rel="stylesheet" href="leaflet.css?v=2026-10-01c" />
+  <link rel="stylesheet" href="leaflet.css?v=2026-10-02b-6fe09c89bf" />
   <!-- Loads after Leaflet's CSS so our theme overrides (e.g. dark-mode control colors)
        win the cascade on equal specificity, regardless of shorthand/longhand quirks. -->
-  <link rel="stylesheet" href="style.css?v=2026-10-01c">
+  <link rel="stylesheet" href="style.css?v=2026-10-02b-6fe09c89bf">
 
   <!-- Loaded live from Google's CDN, unlike every other library here (see lib/ above) --
        Google's OAuth/Picker SDKs can't be self-hosted (they talk to Google's live login
@@ -46,7 +46,25 @@
         <span></span>
         <span></span>
       </button>
-      <h1 class="app-title">GP Data</h1>
+      <h1 class="app-title app-title-has-logo"><svg class="app-title-mark" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="-0.9 32 565.8 276"><g transform="translate(30 0) skewX(-10)">
+    <g id="monogram" fill="currentColor">
+      <path d="M 235 40 H 148 A 118 118 0 0 0 30 158 V 182 A 118 118 0 0 0 148 300 H 187 A 48 48 0 0 0 235 252 V 142 H 156 A 28 28 0 0 0 156 198 A 23 23 0 0 1 156 244 H 148 A 62 62 0 0 1 86 182 V 158 A 62 62 0 0 1 148 96 H 235 Z"/>
+      <path d="M 255 142 H 366 A 23 23 0 0 0 366 96 H 255 V 40 H 366 A 79 79 0 0 1 366 198 H 323 A 12 12 0 0 0 311 210 V 252 A 48 48 0 0 1 263 300 H 258.44 A 12 12 0 0 1 247.72 282.6 A 68 68 0 0 0 255 252 Z"/>
+    </g>
+    <g id="checker" fill="currentColor">
+      <rect x="235" y="40"   width="10" height="11.2"/>
+      <rect x="245" y="51.2" width="10" height="11.2"/>
+      <rect x="235" y="62.4" width="10" height="11.2"/>
+      <rect x="245" y="73.6" width="10" height="11.2"/>
+      <rect x="235" y="84.8" width="10" height="11.2"/>
+    </g>
+    <g id="wordmark" fill="none" stroke="currentColor" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M 374 251 H 356 A 18 18 0 0 0 338 269 V 275 A 18 18 0 0 0 356 293 H 374 M 374 225 V 293"/>
+      <path d="M 434 251 H 416 A 18 18 0 0 0 398 269 V 275 A 18 18 0 0 0 416 293 H 434 M 434 251 V 293"/>
+      <path d="M 458 225 V 282 A 11 11 0 0 0 469 293 H 474 M 458 251 H 474"/>
+      <path d="M 534 251 H 516 A 18 18 0 0 0 498 269 V 275 A 18 18 0 0 0 516 293 H 534 M 534 251 V 293"/>
+    </g>
+  </g></svg><span class="sr-only">GP Data</span></h1>
     </div>
   </header>
 
@@ -399,7 +417,7 @@
       <!-- Sidebar footer: the version, and the light/dark switch -- kept down here, out of
            the way of the actual controls: version on the left, switch on the right. -->
       <div class="controls-footer">
-        <div id="appVersionLabel" class="controls-version" aria-label="Application version">Version 2026-10-01c</div>
+        <div id="appVersionLabel" class="controls-version" aria-label="Application version">Version 2026-10-02b</div>
         <button type="button" id="themeToggleBtn" class="theme-toggle-switch" role="switch" aria-checked="false" aria-label="Switch to dark mode">
           <span class="theme-toggle-track" aria-hidden="true">
             <svg class="theme-toggle-icon theme-toggle-icon-sun" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
@@ -549,8 +567,8 @@
     <small>Supports CSVs with headers. Detects `Time`/`Timestamp` and `Distance` columns. Computes distance if `lat`/`lon` present.</small>
   </footer> -->
 
-  <script src="gpbikes-plotter.bundle.min.js?v=2026-10-01c"></script>
+  <script src="gpbikes-plotter.bundle.min.js?v=2026-10-02b-6fe09c89bf"></script>
 
-  <script src="pwa.js?v=2026-10-01c"></script>
+  <script src="pwa.js?v=2026-10-02b-6fe09c89bf"></script>
 </body>
 </html>

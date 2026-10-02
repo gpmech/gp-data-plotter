@@ -177,6 +177,11 @@
 }
 :root[data-brand="graphite"] header{background:var(--brand-bar-bg);border-bottom:3px solid var(--brand-bar-stripe);padding:8px 16px}
 :root[data-brand="graphite"] .app-title{color:var(--brand-bar-text)}
+/* The GP data logo in place of the name (public and premium builds; it's drawn in
+   currentColor, so it follows the title colour), with premium's PRO badge beside it. */
+.app-title-has-logo{display:flex;align-items:center;gap:8px;line-height:0}
+.app-title-mark{display:block;height:30px;width:auto}
+.app-title-badge{padding:2px 6px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:0.06em;line-height:1.2;background:var(--brand-bar-stripe, var(--accent-active-bg));color:#1f2328}
 :root[data-brand="graphite"] .hamburger-btn{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.3)}
 :root[data-brand="graphite"] .hamburger-btn span{background:var(--brand-bar-text)}
 
